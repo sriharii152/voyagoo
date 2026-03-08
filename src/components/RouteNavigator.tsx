@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Navigation, MapPin, Clock, Route, Loader2, Car, Footprints, Bike, Fuel, IndianRupee } from "lucide-react";
+import { Navigation, MapPin, Clock, Route, Loader2, Car, Footprints, Bike, Fuel, IndianRupee, Download } from "lucide-react";
+import OfflineMapDownloader from "@/components/OfflineMapDownloader";
 import { Button } from "@/components/ui/button";
 import CityAutocomplete from "@/components/CityAutocomplete";
 import L from "leaflet";
@@ -286,7 +287,13 @@ const RouteNavigator = () => {
       </motion.div>
 
       {/* Map */}
-      <div className="rounded-2xl overflow-hidden border border-border h-[450px]" ref={mapContainerRef} />
+      {/* Map + Offline Download */}
+      <div className="relative">
+        <div className="absolute top-3 right-3 z-[1000]">
+          <OfflineMapDownloader map={mapRef.current} />
+        </div>
+        <div className="rounded-2xl overflow-hidden border border-border h-[450px]" ref={mapContainerRef} />
+      </div>
 
       {/* Route Details */}
       <AnimatePresence mode="wait">
