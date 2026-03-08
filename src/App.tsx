@@ -9,6 +9,7 @@ import ExplorePage from "./pages/ExplorePage";
 import BookingsPage from "./pages/BookingsPage";
 import AuthPage from "./pages/AuthPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import ChatBot from "./components/ChatBot";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
