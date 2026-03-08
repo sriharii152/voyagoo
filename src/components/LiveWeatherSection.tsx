@@ -59,12 +59,12 @@ interface GeoResult {
 /* ──────── Defaults ──────── */
 
 const DEFAULT_CITIES: { name: string; country: string; lat: number; lon: number }[] = [
-  { name: "Bali", country: "Indonesia", lat: -8.4095, lon: 115.1889 },
-  { name: "Paris", country: "France", lat: 48.8566, lon: 2.3522 },
-  { name: "Dubai", country: "UAE", lat: 25.2048, lon: 55.2708 },
-  { name: "Kyoto", country: "Japan", lat: 35.0116, lon: 135.7681 },
-  { name: "Santorini", country: "Greece", lat: 36.3932, lon: 25.4615 },
-  { name: "New York", country: "USA", lat: 40.7128, lon: -74.006 },
+  { name: "Chennai", country: "Tamil Nadu, India", lat: 13.0827, lon: 80.2707 },
+  { name: "Bengaluru", country: "Karnataka, India", lat: 12.9716, lon: 77.5946 },
+  { name: "Hyderabad", country: "Telangana, India", lat: 17.385, lon: 78.4867 },
+  { name: "Kochi", country: "Kerala, India", lat: 9.9312, lon: 76.2673 },
+  { name: "Visakhapatnam", country: "Andhra Pradesh, India", lat: 17.6868, lon: 83.2185 },
+  { name: "Madurai", country: "Tamil Nadu, India", lat: 9.9252, lon: 78.1198 },
 ];
 
 /* ──────── Helpers ──────── */
