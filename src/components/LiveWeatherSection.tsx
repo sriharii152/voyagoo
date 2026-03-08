@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   CloudSun,
@@ -21,7 +21,6 @@ import {
   CloudFog,
   CloudLightning,
   Loader2,
-  MapPin,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -145,25 +144,6 @@ async function geocodeCity(query: string): Promise<GeoResult | null> {
   return null;
 }
 
-async function geocodeSuggestions(query: string): Promise<GeoResult[]> {
-  if (query.length < 2) return [];
-  try {
-    const res = await fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=6&language=en`
-    );
-    const data = await res.json();
-    if (data.results?.length) {
-      return data.results.map((r: any) => ({
-        name: r.name,
-        country: r.country ?? "",
-        latitude: r.latitude,
-        longitude: r.longitude,
-      }));
-    }
-  } catch {}
-  return [];
-}
-
 async function fetchWeather(
   city: string,
   country: string,
@@ -214,22 +194,6 @@ const LiveWeatherSection = () => {
   const [searching, setSearching] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
-  const [suggestions, setSuggestions] = useState<GeoResult[]>([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [activeSuggestion, setActiveSuggestion] = useState(-1);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdown on outside click
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setShowSuggestions(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
 
   const loadDefaultWeather = useCallback(async () => {
     setLoading(true);
@@ -247,6 +211,7 @@ const LiveWeatherSection = () => {
 
   useEffect(() => {
     loadDefaultWeather();
+    // Auto-refresh every 5 minutes
     const interval = setInterval(loadDefaultWeather, 5 * 60 * 1000);
     return () => clearInterval(interval);
   }, [loadDefaultWeather]);
@@ -257,42 +222,8 @@ const LiveWeatherSection = () => {
     setRefreshing(false);
   };
 
-  const handleInputChange = (value: string) => {
-    setSearchQuery(value);
-    setActiveSuggestion(-1);
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    if (value.trim().length < 2) {
-      setSuggestions([]);
-      setShowSuggestions(false);
-      return;
-    }
-    debounceRef.current = setTimeout(async () => {
-      const results = await geocodeSuggestions(value);
-      setSuggestions(results);
-      setShowSuggestions(results.length > 0);
-    }, 300);
-  };
-
-  const selectSuggestion = async (geo: GeoResult) => {
-    setShowSuggestions(false);
-    setSearchQuery("");
-    setSuggestions([]);
-    setSearching(true);
-    try {
-      const existing = weatherData.find(
-        (w) => w.city.toLowerCase() === geo.name.toLowerCase()
-      );
-      if (!existing) {
-        const weather = await fetchWeather(geo.name, geo.country, geo.latitude, geo.longitude);
-        setWeatherData((prev) => [weather, ...prev]);
-      }
-    } catch {}
-    setSearching(false);
-  };
-
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
-    setShowSuggestions(false);
     setSearching(true);
     try {
       const geo = await geocodeCity(searchQuery);
@@ -310,29 +241,6 @@ const LiveWeatherSection = () => {
     setSearchQuery("");
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!showSuggestions) {
-      if (e.key === "Enter") handleSearch();
-      return;
-    }
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setActiveSuggestion((prev) => Math.min(prev + 1, suggestions.length - 1));
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setActiveSuggestion((prev) => Math.max(prev - 1, 0));
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      if (activeSuggestion >= 0 && suggestions[activeSuggestion]) {
-        selectSuggestion(suggestions[activeSuggestion]);
-      } else {
-        handleSearch();
-      }
-    } else if (e.key === "Escape") {
-      setShowSuggestions(false);
-    }
-  };
-
   const removeCity = (city: string) => {
     setWeatherData((prev) => prev.filter((w) => w.city !== city));
   };
@@ -341,37 +249,14 @@ const LiveWeatherSection = () => {
     <div>
       {/* Search & Refresh bar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
-        <div className="flex-1 flex gap-2" ref={containerRef}>
-          <div className="relative flex-1">
-            <Input
-              placeholder="Search any city for live weather..."
-              value={searchQuery}
-              onChange={(e) => handleInputChange(e.target.value)}
-              onKeyDown={handleKeyDown}
-              onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-              className="flex-1"
-            />
-            {/* Autocomplete dropdown */}
-            {showSuggestions && suggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-card border border-border rounded-lg shadow-lg overflow-hidden">
-                {suggestions.map((s, idx) => (
-                  <button
-                    key={`${s.name}-${s.country}-${s.latitude}`}
-                    onClick={() => selectSuggestion(s)}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-left transition-colors ${
-                      idx === activeSuggestion
-                        ? "bg-accent/15 text-foreground"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    <MapPin className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-                    <span className="font-medium">{s.name}</span>
-                    <span className="text-muted-foreground text-xs">{s.country}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+        <div className="flex-1 flex gap-2">
+          <Input
+            placeholder="Search any city for live weather..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            className="flex-1"
+          />
           <Button onClick={handleSearch} disabled={searching} size="sm" className="shrink-0">
             {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
             <span className="ml-1.5 hidden sm:inline">Search</span>
