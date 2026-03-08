@@ -261,26 +261,22 @@ const RouteNavigator = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <div className="relative">
-            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary" />
-            <Input
-              placeholder="From (e.g. Delhi, Mumbai, London)"
-              value={origin}
-              onChange={(e) => setOrigin(e.target.value)}
-              className="pl-10 h-12 rounded-xl"
-              onKeyDown={(e) => e.key === "Enter" && handlePlanRoute()}
-            />
-          </div>
-          <div className="relative">
-            <Navigation className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-secondary" />
-            <Input
-              placeholder="To (e.g. Goa, Jaipur, Paris)"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              className="pl-10 h-12 rounded-xl"
-              onKeyDown={(e) => e.key === "Enter" && handlePlanRoute()}
-            />
-          </div>
+          <CityAutocomplete
+            value={origin}
+            onChange={setOrigin}
+            placeholder="From (e.g. Delhi, Mumbai, London)"
+            icon={<MapPin className="h-4 w-4 text-primary" />}
+            inputClassName="h-12 rounded-xl"
+            onKeyDown={(e) => e.key === "Enter" && handlePlanRoute()}
+          />
+          <CityAutocomplete
+            value={destination}
+            onChange={setDestination}
+            placeholder="To (e.g. Goa, Jaipur, Paris)"
+            icon={<Navigation className="h-4 w-4 text-secondary" />}
+            inputClassName="h-12 rounded-xl"
+            onKeyDown={(e) => e.key === "Enter" && handlePlanRoute()}
+          />
         </div>
         <Button variant="hero" onClick={handlePlanRoute} disabled={loading} className="w-full md:w-auto">
           {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Navigation className="h-4 w-4 mr-2" />}
