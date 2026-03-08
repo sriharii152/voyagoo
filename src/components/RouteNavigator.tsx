@@ -290,9 +290,9 @@ const RouteNavigator = () => {
       <div className="rounded-2xl overflow-hidden border border-border h-[450px]" ref={mapContainerRef} />
 
       {/* Route Details */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {route && (
-          <motion.div
+          <motion.div key="route-details"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
