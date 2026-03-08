@@ -8,6 +8,7 @@ const features = [
   { icon: Music, title: "Nearby Events", desc: "Discover local festivals, concerts, and cultural happenings", color: "text-sunset" },
   { icon: Hotel, title: "Hotel Booking", desc: "Compare and book hotels with best price guarantees", color: "text-ocean" },
   { icon: Navigation, title: "Smart Navigator", desc: "Offline maps, turn-by-turn directions, and saved routes", color: "text-primary" },
+  { icon: Flame, title: "Activities & Adventures", desc: "Discover adventure, fun & crazy activities — chat with local dealers for info and bookings", color: "text-sunset" },
 ];
 
 const FeaturesSection = () => {
