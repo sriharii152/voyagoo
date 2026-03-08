@@ -97,11 +97,76 @@ const OfflineMapDownloader = ({ map }: OfflineMapDownloaderProps) => {
   const [downloadedCount, setDownloadedCount] = useState(0);
   const [totalTiles, setTotalTiles] = useState(0);
   const [savedRegions, setSavedRegions] = useState<SavedRegion[]>(getSavedRegions());
+  const [showOverlays, setShowOverlays] = useState(true);
   const rectangleRef = useRef<L.Rectangle | null>(null);
   const selectStartRef = useRef<L.LatLng | null>(null);
   const abortRef = useRef(false);
+  const overlayLayerRef = useRef<L.LayerGroup | null>(null);
 
   const minZoom = 5;
+
+  // Draw saved region overlays on map
+  useEffect(() => {
+    if (!map) return;
+
+    if (overlayLayerRef.current) {
+      map.removeLayer(overlayLayerRef.current);
+    }
+
+    if (!showOverlays || savedRegions.length === 0) {
+      overlayLayerRef.current = null;
+      return;
+    }
+
+    const group = L.layerGroup().addTo(map);
+    overlayLayerRef.current = group;
+
+    savedRegions.forEach((region) => {
+      const bounds = L.latLngBounds(
+        [region.bounds.south, region.bounds.west],
+        [region.bounds.north, region.bounds.east]
+      );
+
+      const rect = L.rectangle(bounds, {
+        color: "hsl(160, 60%, 45%)",
+        weight: 2,
+        fillOpacity: 0.08,
+        dashArray: "4 4",
+        interactive: true,
+      }).addTo(group);
+
+      rect.bindPopup(`
+        <div style="min-width:140px">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:hsl(160,60%,45%)"></span>
+            <b style="font-size:13px">${region.name}</b>
+          </div>
+          <p style="font-size:11px;color:#888;margin:0">
+            ${region.tileCount} tiles · ~${region.sizeMB} MB<br/>
+            Zoom ${region.minZoom}–${region.maxZoom}<br/>
+            Downloaded ${new Date(region.downloadedAt).toLocaleDateString()}
+          </p>
+          <span style="display:inline-block;margin-top:6px;background:hsl(160,60%,45%);color:white;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:600">Available Offline</span>
+        </div>
+      `);
+
+      // Label in center
+      const center = bounds.getCenter();
+      const label = L.divIcon({
+        className: "offline-region-label",
+        html: `<div style="background:hsl(160,60%,45%,0.85);color:white;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.2);pointer-events:none">📥 ${region.name}</div>`,
+        iconSize: [0, 0],
+        iconAnchor: [0, 0],
+      });
+      L.marker(center, { icon: label, interactive: false }).addTo(group);
+    });
+
+    return () => {
+      if (overlayLayerRef.current) {
+        map.removeLayer(overlayLayerRef.current);
+      }
+    };
+  }, [map, savedRegions, showOverlays]);
 
   const tileCount = selectedBounds ? countTiles(selectedBounds, minZoom, parseInt(maxZoom)) : 0;
   const estimatedSizeMB = Math.round(tileCount * 0.015 * 10) / 10; // ~15KB average per tile
