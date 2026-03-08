@@ -251,6 +251,9 @@ const JourneyPlannerModal = ({ open, onClose }: JourneyPlannerModalProps) => {
                   </div>
                 </>
               )}
+              </div>
+
+              <AutoTripPlanner />
             </div>
           </motion.div>
         </motion.div>
