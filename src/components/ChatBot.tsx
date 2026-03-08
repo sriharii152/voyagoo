@@ -147,7 +147,7 @@ const ChatBot = () => {
               <div className="flex items-center gap-2">
                 <Bot className="h-5 w-5" />
                 <div>
-                  <p className="font-display font-semibold text-sm">Wanderlust AI</p>
+                  <p className="font-display font-semibold text-sm">Voyago AI</p>
                   <p className="text-[10px] opacity-80">Travel & Activities Assistant</p>
                 </div>
               </div>

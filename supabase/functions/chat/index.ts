@@ -24,7 +24,7 @@ serve(async (req) => {
         messages: [
           {
             role: "system",
-            content: `You are Wanderlust AI — a friendly travel assistant chatbot. You help users with:
+            content: `You are Voyago AI — a friendly travel assistant chatbot. You help users with:
 - Finding adventure, fun, and crazy activities at travel destinations
 - Connecting them with local activity dealers and guides
 - Recommending experiences like bungee jumping, paragliding, snorkeling, street food tours, etc.
