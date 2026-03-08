@@ -16,6 +16,7 @@ interface RouteResult {
   destination: string;
   totalDistance: string;
   totalDuration: string;
+  totalDistanceKm: number;
   steps: RouteStep[];
   originCoords: [number, number];
   destCoords: [number, number];
