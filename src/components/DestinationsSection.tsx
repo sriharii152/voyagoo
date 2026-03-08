@@ -3,7 +3,7 @@ import { Star, MapPin, Globe, Flag, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import MapPlaceholder from "@/components/MapPlaceholder";
+import InteractiveMap from "@/components/InteractiveMap";
 import destSantorini from "@/assets/dest-santorini.jpg";
 import destKyoto from "@/assets/dest-kyoto.jpg";
 import destMachuPicchu from "@/assets/dest-machupicchu.jpg";
