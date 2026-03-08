@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navigation, MapPin, Clock, Route, Loader2, Car, Footprints, Bike, Fuel, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import CityAutocomplete from "@/components/CityAutocomplete";
 import L from "leaflet";
 
 interface RouteStep {
