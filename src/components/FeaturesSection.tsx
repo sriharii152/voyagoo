@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Map, CalendarDays, Wallet, Music, Hotel, Navigation, Flame } from "lucide-react";
+import { Map, CalendarDays, Wallet, Music, Hotel, Navigation, Flame, ShieldCheck } from "lucide-react";
 
 const features = [
   { icon: Map, title: "Destination Explorer", desc: "Browse curated destinations with stunning visuals and local tips", color: "text-ocean" },
@@ -9,6 +9,7 @@ const features = [
   { icon: Hotel, title: "Hotel Booking", desc: "Compare and book hotels with best price guarantees", color: "text-ocean" },
   { icon: Navigation, title: "Smart Navigator", desc: "Offline maps, turn-by-turn directions, and saved routes", color: "text-primary" },
   { icon: Flame, title: "Activities & Adventures", desc: "Discover adventure, fun & crazy activities — chat with local dealers for info and bookings", color: "text-sunset" },
+  { icon: ShieldCheck, title: "Safety & Alerts", desc: "Weather updates, traffic alerts, emergency numbers, and safe route suggestions", color: "text-destructive" },
 ];
 
 const FeaturesSection = () => {
