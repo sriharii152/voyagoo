@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      budget_expenses: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          description: string
+          expense_date: string
+          id: string
+          trip_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          category?: string
+          created_at?: string
+          description?: string
+          expense_date?: string
+          id?: string
+          trip_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          description?: string
+          expense_date?: string
+          id?: string
+          trip_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "budget_expenses_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "saved_trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       favorite_destinations: {
         Row: {
           created_at: string
@@ -74,6 +115,78 @@ export type Database = {
         }
         Relationships: []
       }
+      saved_activities: {
+        Row: {
+          activity_name: string
+          activity_type: string
+          created_at: string
+          description: string
+          destination: string
+          duration: string
+          estimated_cost: number | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          activity_name: string
+          activity_type?: string
+          created_at?: string
+          description?: string
+          destination?: string
+          duration?: string
+          estimated_cost?: number | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          activity_name?: string
+          activity_type?: string
+          created_at?: string
+          description?: string
+          destination?: string
+          duration?: string
+          estimated_cost?: number | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      saved_events: {
+        Row: {
+          created_at: string
+          event_category: string
+          event_date: string
+          event_location: string
+          event_price: string
+          event_time: string
+          event_title: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_category?: string
+          event_date?: string
+          event_location?: string
+          event_price?: string
+          event_time?: string
+          event_title: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          event_category?: string
+          event_date?: string
+          event_location?: string
+          event_price?: string
+          event_time?: string
+          event_title?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       saved_trips: {
         Row: {
           budget: number | null
@@ -115,6 +228,50 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      trip_itinerary_items: {
+        Row: {
+          activity: string
+          created_at: string
+          day_number: number
+          id: string
+          location: string
+          sort_order: number
+          time: string
+          trip_id: string | null
+          user_id: string
+        }
+        Insert: {
+          activity: string
+          created_at?: string
+          day_number?: number
+          id?: string
+          location?: string
+          sort_order?: number
+          time?: string
+          trip_id?: string | null
+          user_id: string
+        }
+        Update: {
+          activity?: string
+          created_at?: string
+          day_number?: number
+          id?: string
+          location?: string
+          sort_order?: number
+          time?: string
+          trip_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_itinerary_items_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "saved_trips"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
