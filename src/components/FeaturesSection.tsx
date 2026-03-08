@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Map, CalendarDays, Wallet, Music, Hotel, Navigation, Flame, ShieldCheck } from "lucide-react";
+import { Map, CalendarDays, Wallet, Music, Hotel, Navigation, Flame, ShieldCheck, Link2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const features = [
@@ -11,6 +11,7 @@ const features = [
   { icon: Navigation, title: "Smart Navigator", desc: "Offline maps, turn-by-turn directions, and saved routes", color: "text-primary", href: "/explore" },
   { icon: Flame, title: "Activities & Adventures", desc: "Discover adventure, fun & crazy activities — chat with local dealers for info and bookings", color: "text-primary", href: "/activities" },
   { icon: ShieldCheck, title: "Safety & Alerts", desc: "Weather updates, traffic alerts, emergency numbers, and safe route suggestions", color: "text-destructive", href: "/safety" },
+  { icon: Link2, title: "ConnectMe", desc: "Live location sharing, voice messages, and group chat with your travel crew", color: "text-secondary", href: "/connect" },
 ];
 
 const FeaturesSection = () => {

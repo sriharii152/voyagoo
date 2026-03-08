@@ -16,6 +16,7 @@ import SafetyPage from "./pages/SafetyPage";
 import AuthPage from "./pages/AuthPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import TripDiaryPage from "./pages/TripDiaryPage";
+import ConnectMePage from "./pages/ConnectMePage";
 import ChatBot from "./components/ChatBot";
 import NotFound from "./pages/NotFound";
 
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/activities" element={<ActivitiesPage />} />
             <Route path="/safety" element={<SafetyPage />} />
             <Route path="/diary" element={<TripDiaryPage />} />
+            <Route path="/connect" element={<ConnectMePage />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

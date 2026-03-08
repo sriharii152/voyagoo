@@ -20,6 +20,7 @@ const navItems = [
   { label: "Activities", href: "/activities" },
   { label: "Safety", href: "/safety" },
   { label: "Trip Diary", href: "/diary" },
+  { label: "ConnectMe", href: "/connect" },
 ];
 
 const Navbar = () => {
