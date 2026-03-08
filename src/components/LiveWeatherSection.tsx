@@ -265,12 +265,14 @@ const LiveWeatherSection = () => {
       {/* Search & Refresh bar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="flex-1 flex gap-2">
-          <Input
-            placeholder="Search any city for live weather..."
+          <CityAutocomplete
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            onChange={setSearchQuery}
+            onSelect={handleSearchSelect}
+            placeholder="Search any city for live weather..."
+            icon={<Search className="h-4 w-4 text-muted-foreground" />}
             className="flex-1"
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           />
           <Button onClick={handleSearch} disabled={searching} size="sm" className="shrink-0">
             {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
