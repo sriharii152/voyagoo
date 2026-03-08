@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Star, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import MapPlaceholder from "@/components/MapPlaceholder";
 import destSantorini from "@/assets/dest-santorini.jpg";
 import destKyoto from "@/assets/dest-kyoto.jpg";
 import destMachuPicchu from "@/assets/dest-machupicchu.jpg";
@@ -66,6 +69,21 @@ const DestinationsSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Mini map preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <MapPlaceholder height="h-[350px]" interactive={false} />
+          <div className="text-center mt-6">
+            <Link to="/explore">
+              <Button variant="hero">Open Full Map</Button>
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
