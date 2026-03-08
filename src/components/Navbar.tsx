@@ -37,10 +37,21 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <Link to="/" className="flex items-center gap-2 group">
-          <Compass className="h-7 w-7 text-primary transition-transform group-hover:rotate-45" />
-          <span className="font-display text-xl font-bold text-foreground">Wanderlust</span>
-        </Link>
+        <div className="flex items-center gap-2">
+          {location.pathname !== "/" && (
+            <button
+              onClick={() => navigate(-1)}
+              className="p-2 -ml-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              aria-label="Go back"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </button>
+          )}
+          <Link to="/" className="flex items-center gap-2 group">
+            <Compass className="h-7 w-7 text-primary transition-transform group-hover:rotate-45" />
+            <span className="font-display text-xl font-bold text-foreground">Wanderlust</span>
+          </Link>
+        </div>
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1">
