@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import { Globe, Lock, MapPin, Utensils, Eye, StickyNote, Trash2, Calendar, Mic, Play } from "lucide-react";
-import { motion } from "framer-motion";
+import { Globe, Lock, MapPin, Utensils, Eye, StickyNote, Trash2, Calendar, Mic, Heart, MessageCircle, Send } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
 import { toast } from "@/hooks/use-toast";
 
@@ -30,6 +31,14 @@ interface MediaItem {
   caption: string;
 }
 
+interface Comment {
+  id: string;
+  user_id: string;
+  content: string;
+  created_at: string;
+  author_name?: string;
+}
+
 interface DiaryEntryCardProps {
   entry: DiaryEntry;
   onDelete?: () => void;
@@ -40,10 +49,18 @@ const DiaryEntryCard = ({ entry, onDelete, showAuthor }: DiaryEntryCardProps) =>
   const { user } = useAuth();
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [authorName, setAuthorName] = useState("");
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [showComments, setShowComments] = useState(false);
+  const [newComment, setNewComment] = useState("");
+  const [submittingComment, setSubmittingComment] = useState(false);
   const isOwner = user?.id === entry.user_id;
 
   useEffect(() => {
     fetchMedia();
+    fetchLikes();
+    fetchComments();
     if (showAuthor) fetchAuthor();
   }, [entry.id]);
 
@@ -64,6 +81,74 @@ const DiaryEntryCard = ({ entry, onDelete, showAuthor }: DiaryEntryCardProps) =>
     if (data) setAuthorName(data.display_name || "Traveler");
   };
 
+  const fetchLikes = async () => {
+    const { data, count } = await supabase
+      .from("diary_likes")
+      .select("*", { count: "exact" })
+      .eq("entry_id", entry.id);
+    setLikeCount(count || 0);
+    if (user && data) {
+      setLiked(data.some((l: any) => l.user_id === user.id));
+    }
+  };
+
+  const fetchComments = async () => {
+    const { data } = await supabase
+      .from("diary_comments")
+      .select("*")
+      .eq("entry_id", entry.id)
+      .order("created_at", { ascending: true });
+    if (!data) return;
+
+    const userIds = [...new Set(data.map((c: any) => c.user_id))];
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("user_id, display_name")
+      .in("user_id", userIds);
+
+    const nameMap: Record<string, string> = {};
+    profiles?.forEach((p: any) => { nameMap[p.user_id] = p.display_name || "Traveler"; });
+
+    setComments(data.map((c: any) => ({ ...c, author_name: nameMap[c.user_id] || "Traveler" })));
+  };
+
+  const toggleLike = async () => {
+    if (!user) {
+      toast({ title: "Sign in to like entries", variant: "destructive" });
+      return;
+    }
+    if (liked) {
+      await supabase.from("diary_likes").delete().eq("entry_id", entry.id).eq("user_id", user.id);
+      setLiked(false);
+      setLikeCount((c) => c - 1);
+    } else {
+      await supabase.from("diary_likes").insert({ entry_id: entry.id, user_id: user.id });
+      setLiked(true);
+      setLikeCount((c) => c + 1);
+    }
+  };
+
+  const submitComment = async () => {
+    if (!user) {
+      toast({ title: "Sign in to comment", variant: "destructive" });
+      return;
+    }
+    if (!newComment.trim()) return;
+    setSubmittingComment(true);
+    const { error } = await supabase.from("diary_comments").insert({
+      entry_id: entry.id,
+      user_id: user.id,
+      content: newComment.trim(),
+    });
+    if (error) {
+      toast({ title: "Failed to comment", variant: "destructive" });
+    } else {
+      setNewComment("");
+      fetchComments();
+    }
+    setSubmittingComment(false);
+  };
+
   const getPublicUrl = (path: string) => {
     const { data } = supabase.storage.from("diary-media").getPublicUrl(path);
     return data.publicUrl;
@@ -71,7 +156,6 @@ const DiaryEntryCard = ({ entry, onDelete, showAuthor }: DiaryEntryCardProps) =>
 
   const handleDelete = async () => {
     if (!confirm("Delete this diary entry?")) return;
-    // Delete media from storage
     for (const m of media) {
       await supabase.storage.from("diary-media").remove([m.file_path]);
     }
@@ -84,28 +168,19 @@ const DiaryEntryCard = ({ entry, onDelete, showAuthor }: DiaryEntryCardProps) =>
     }
   };
 
-  const images = media.filter(m => m.file_type === "image");
-  const videos = media.filter(m => m.file_type === "video");
-  const voices = media.filter(m => m.file_type === "voice");
+  const images = media.filter((m) => m.file_type === "image");
+  const videos = media.filter((m) => m.file_type === "video");
+  const voices = media.filter((m) => m.file_type === "voice");
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
       <Card className="overflow-hidden border-border/60 hover:border-primary/30 transition-colors bg-card">
         {/* Image gallery */}
         {images.length > 0 && (
           <div className={`grid gap-1 ${images.length === 1 ? "" : images.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
             {images.slice(0, 3).map((img, i) => (
-              <div key={img.id} className={`relative ${images.length === 1 ? "h-56" : "h-40"} ${i === 0 && images.length > 2 ? "col-span-2 row-span-1" : ""}`}>
-                <img
-                  src={getPublicUrl(img.file_path)}
-                  alt=""
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+              <div key={img.id} className={`relative ${images.length === 1 ? "h-56" : "h-40"} ${i === 0 && images.length > 2 ? "col-span-2" : ""}`}>
+                <img src={getPublicUrl(img.file_path)} alt="" className="w-full h-full object-cover" loading="lazy" />
                 {i === 2 && images.length > 3 && (
                   <div className="absolute inset-0 bg-foreground/50 flex items-center justify-center">
                     <span className="text-primary-foreground font-bold text-lg">+{images.length - 3}</span>
@@ -177,14 +252,8 @@ const DiaryEntryCard = ({ entry, onDelete, showAuthor }: DiaryEntryCardProps) =>
           {/* Videos */}
           {videos.length > 0 && (
             <div className="grid grid-cols-2 gap-2">
-              {videos.map(v => (
-                <video
-                  key={v.id}
-                  src={getPublicUrl(v.file_path)}
-                  controls
-                  className="w-full rounded-lg border border-border"
-                  style={{ maxHeight: 200 }}
-                />
+              {videos.map((v) => (
+                <video key={v.id} src={getPublicUrl(v.file_path)} controls className="w-full rounded-lg border border-border" style={{ maxHeight: 200 }} />
               ))}
             </div>
           )}
@@ -192,7 +261,7 @@ const DiaryEntryCard = ({ entry, onDelete, showAuthor }: DiaryEntryCardProps) =>
           {/* Voice recordings */}
           {voices.length > 0 && (
             <div className="space-y-2">
-              {voices.map(v => (
+              {voices.map((v) => (
                 <div key={v.id} className="flex items-center gap-2 p-2 rounded-lg bg-muted/50 border border-border">
                   <Mic className="h-4 w-4 text-primary" />
                   <audio src={getPublicUrl(v.file_path)} controls className="flex-1 h-8" />
@@ -200,6 +269,62 @@ const DiaryEntryCard = ({ entry, onDelete, showAuthor }: DiaryEntryCardProps) =>
               ))}
             </div>
           )}
+
+          {/* Like & Comment bar */}
+          <div className="flex items-center gap-4 pt-2 border-t border-border">
+            <button onClick={toggleLike} className="flex items-center gap-1.5 text-sm transition-colors hover:text-primary">
+              <Heart className={`h-4 w-4 ${liked ? "fill-primary text-primary" : "text-muted-foreground"}`} />
+              <span className={liked ? "text-primary font-medium" : "text-muted-foreground"}>{likeCount}</span>
+            </button>
+            <button onClick={() => setShowComments(!showComments)} className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-secondary transition-colors">
+              <MessageCircle className="h-4 w-4" />
+              <span>{comments.length}</span>
+            </button>
+          </div>
+
+          {/* Comments section */}
+          <AnimatePresence>
+            {showComments && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="space-y-3 overflow-hidden">
+                {comments.length > 0 && (
+                  <div className="space-y-2 max-h-48 overflow-y-auto">
+                    {comments.map((c) => (
+                      <div key={c.id} className="flex gap-2 text-sm">
+                        <div className="flex-1 bg-muted/50 rounded-lg p-2">
+                          <span className="font-medium text-foreground text-xs">{c.author_name}</span>
+                          <p className="text-muted-foreground text-xs mt-0.5">{c.content}</p>
+                        </div>
+                        {user?.id === c.user_id && (
+                          <button
+                            onClick={async () => {
+                              await supabase.from("diary_comments").delete().eq("id", c.id);
+                              fetchComments();
+                            }}
+                            className="text-destructive hover:text-destructive/80 text-xs self-start pt-2"
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="flex gap-2">
+                  <Textarea
+                    placeholder="Write a comment..."
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    rows={1}
+                    className="bg-background text-sm min-h-[36px] resize-none"
+                    onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submitComment(); } }}
+                  />
+                  <Button size="icon" variant="ghost" onClick={submitComment} disabled={submittingComment || !newComment.trim()} className="shrink-0 h-9 w-9 text-primary">
+                    <Send className="h-4 w-4" />
+                  </Button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </CardContent>
       </Card>
     </motion.div>

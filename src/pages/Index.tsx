@@ -8,6 +8,7 @@ import BudgetSection from "@/components/BudgetSection";
 import EventsSection from "@/components/EventsSection";
 import SafetyAlertsSection from "@/components/SafetyAlertsSection";
 import Footer from "@/components/Footer";
+import DiaryCarouselSection from "@/components/DiaryCarouselSection";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
       <BookingSection />
       <TripPlannerSection />
       <BudgetSection />
+      <DiaryCarouselSection />
       <SafetyAlertsSection />
       <EventsSection />
       <Footer />
