@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-center gap-2">
             <Compass className="h-6 w-6 text-primary" />
-            <span className="font-display text-xl font-bold text-background">Wanderlust</span>
+            <span className="font-display text-xl font-bold text-background">Voyago</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-background/60">
             <Link to="/" className="hover:text-background transition-colors">Home</Link>
