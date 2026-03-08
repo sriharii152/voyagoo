@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Navigation, MapPin, Clock, Route, Loader2, Car, Footprints, Bike, Fuel, IndianRupee } from "lucide-react";
+import { Navigation, MapPin, Clock, Route, Loader2, Car, Footprints, Bike, Fuel, IndianRupee, Download } from "lucide-react";
+import OfflineMapDownloader from "@/components/OfflineMapDownloader";
 import { Button } from "@/components/ui/button";
 import CityAutocomplete from "@/components/CityAutocomplete";
 import L from "leaflet";
