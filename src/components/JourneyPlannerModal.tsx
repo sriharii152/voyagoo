@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Users, Calendar, Wallet, MapPin, Star, Search, Sparkles } from "lucide-react";
+import AutoTripPlanner from "@/components/AutoTripPlanner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -190,8 +191,9 @@ const JourneyPlannerModal = ({ open, onClose }: JourneyPlannerModalProps) => {
               </div>
             </div>
 
-            {/* Results */}
-            <div className="flex-1 overflow-y-auto px-6 py-5">
+            {/* Results + Auto Planner */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="px-6 py-5">
               {!searched ? (
                 <div className="text-center text-muted-foreground py-12">
                   <MapPin className="h-12 w-12 mx-auto mb-3 opacity-30" />
@@ -250,6 +252,9 @@ const JourneyPlannerModal = ({ open, onClose }: JourneyPlannerModalProps) => {
                   </div>
                 </>
               )}
+              </div>
+
+              <AutoTripPlanner />
             </div>
           </motion.div>
         </motion.div>
