@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Map, CalendarDays, Wallet, Music, Hotel, Navigation } from "lucide-react";
+import { Map, CalendarDays, Wallet, Music, Hotel, Navigation, Flame } from "lucide-react";
 
 const features = [
   { icon: Map, title: "Destination Explorer", desc: "Browse curated destinations with stunning visuals and local tips", color: "text-ocean" },
