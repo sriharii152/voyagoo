@@ -15,6 +15,7 @@ import ActivitiesPage from "./pages/ActivitiesPage";
 import SafetyPage from "./pages/SafetyPage";
 import AuthPage from "./pages/AuthPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import TripDiaryPage from "./pages/TripDiaryPage";
 import ChatBot from "./components/ChatBot";
 import NotFound from "./pages/NotFound";
 
