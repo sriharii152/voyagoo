@@ -55,6 +55,155 @@ export type Database = {
           },
         ]
       }
+      connect_group_members: {
+        Row: {
+          group_id: string
+          id: string
+          joined_at: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          group_id: string
+          id?: string
+          joined_at?: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          group_id?: string
+          id?: string
+          joined_at?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "connect_group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "connect_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      connect_groups: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          group_type: string
+          id: string
+          invite_code: string | null
+          name: string
+          trip_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          group_type?: string
+          id?: string
+          invite_code?: string | null
+          name: string
+          trip_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          group_type?: string
+          id?: string
+          invite_code?: string | null
+          name?: string
+          trip_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "connect_groups_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "saved_trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      connect_locations: {
+        Row: {
+          group_id: string
+          id: string
+          is_sharing: boolean
+          latitude: number
+          longitude: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          group_id: string
+          id?: string
+          is_sharing?: boolean
+          latitude: number
+          longitude: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          group_id?: string
+          id?: string
+          is_sharing?: boolean
+          latitude?: number
+          longitude?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "connect_locations_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "connect_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      connect_messages: {
+        Row: {
+          content: string | null
+          created_at: string
+          file_path: string | null
+          group_id: string
+          id: string
+          message_type: string
+          user_id: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          file_path?: string | null
+          group_id: string
+          id?: string
+          message_type?: string
+          user_id: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          file_path?: string | null
+          group_id?: string
+          id?: string
+          message_type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "connect_messages_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "connect_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       diary_comments: {
         Row: {
           content: string
@@ -422,7 +571,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_group_member: {
+        Args: { _group_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
