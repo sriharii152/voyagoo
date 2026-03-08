@@ -205,11 +205,13 @@ const RouteNavigator = () => {
         return;
       }
 
+      const distKm = routeData.distance / 1000;
       setRoute({
         origin: originGeo.display,
         destination: destGeo.display,
         totalDistance: formatDistance(routeData.distance),
         totalDuration: formatDuration(routeData.duration),
+        totalDistanceKm: distKm,
         steps: routeData.steps,
         originCoords: [originGeo.lat, originGeo.lng],
         destCoords: [destGeo.lat, destGeo.lng],
