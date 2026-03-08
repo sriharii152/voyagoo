@@ -27,6 +27,7 @@ const ConnectMePage = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
+  useConnectNotifications({ activeGroupId: selectedGroupId });
 
   useEffect(() => {
     if (user) fetchGroups();
