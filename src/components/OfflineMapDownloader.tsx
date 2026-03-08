@@ -121,7 +121,7 @@ const OfflineMapDownloader = ({ map }: OfflineMapDownloaderProps) => {
       if (rectangleRef.current) {
         map.removeLayer(rectangleRef.current);
       }
-      rectangleRef.current = L.rectangle([e.latlng, e.latlng], {
+      rectangleRef.current = L.rectangle(L.latLngBounds(e.latlng, e.latlng), {
         color: "hsl(24, 80%, 50%)",
         weight: 2,
         fillOpacity: 0.15,
