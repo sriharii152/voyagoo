@@ -165,42 +165,15 @@ const SafetyAlertsSection = () => {
 
         {/* Content */}
         <AnimatePresence mode="wait">
-          {/* Weather */}
+          {/* Weather — Live */}
           {activeTab === "weather" && (
             <motion.div
               key="weather"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
             >
-              {weatherAlerts.map((w, i) => (
-                <motion.div
-                  key={w.city}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                  className={`rounded-2xl border p-5 ${severityColors[w.severity]} transition-shadow hover:shadow-md`}
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h3 className="font-display text-lg font-bold">{w.city}</h3>
-                      <p className="text-xs opacity-75">{w.condition}</p>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-2xl font-bold">{w.temp}</span>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 text-xs mb-3 opacity-80">
-                    <span className="flex items-center gap-1"><Droplets className="h-3 w-3" />{w.humidity}</span>
-                    <span className="flex items-center gap-1"><Wind className="h-3 w-3" />{w.wind}</span>
-                  </div>
-                  <div className="flex items-start gap-2 text-xs bg-background/50 rounded-lg p-2.5">
-                    <AlertTriangle className="h-3.5 w-3.5 shrink-0 mt-0.5" />
-                    <span>{w.advisory}</span>
-                  </div>
-                </motion.div>
-              ))}
+              <LiveWeatherSection />
             </motion.div>
           )}
 
