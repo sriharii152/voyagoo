@@ -7,6 +7,12 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import ExplorePage from "./pages/ExplorePage";
 import BookingsPage from "./pages/BookingsPage";
+import DestinationsPage from "./pages/DestinationsPage";
+import PlannerPage from "./pages/PlannerPage";
+import BudgetPage from "./pages/BudgetPage";
+import EventsPage from "./pages/EventsPage";
+import ActivitiesPage from "./pages/ActivitiesPage";
+import SafetyPage from "./pages/SafetyPage";
 import AuthPage from "./pages/AuthPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import ChatBot from "./components/ChatBot";
@@ -25,6 +31,12 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/explore" element={<ExplorePage />} />
             <Route path="/bookings" element={<BookingsPage />} />
+            <Route path="/destinations" element={<DestinationsPage />} />
+            <Route path="/planner" element={<PlannerPage />} />
+            <Route path="/budget" element={<BudgetPage />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/activities" element={<ActivitiesPage />} />
+            <Route path="/safety" element={<SafetyPage />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
