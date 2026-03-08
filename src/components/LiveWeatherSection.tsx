@@ -22,8 +22,8 @@ import {
   CloudLightning,
   Loader2,
 } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import CityAutocomplete from "@/components/CityAutocomplete";
 
 /* ──────── Types ──────── */
 
@@ -222,6 +222,21 @@ const LiveWeatherSection = () => {
     setRefreshing(false);
   };
 
+  const handleSearchSelect = async (suggestion: { name: string; country: string; latitude: number; longitude: number }) => {
+    const existing = weatherData.find(
+      (w) => w.city.toLowerCase() === suggestion.name.toLowerCase()
+    );
+    if (!existing) {
+      setSearching(true);
+      try {
+        const weather = await fetchWeather(suggestion.name, suggestion.country, suggestion.latitude, suggestion.longitude);
+        setWeatherData((prev) => [weather, ...prev]);
+      } catch {}
+      setSearching(false);
+    }
+    setSearchQuery("");
+  };
+
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
     setSearching(true);
@@ -250,12 +265,14 @@ const LiveWeatherSection = () => {
       {/* Search & Refresh bar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="flex-1 flex gap-2">
-          <Input
-            placeholder="Search any city for live weather..."
+          <CityAutocomplete
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            onChange={setSearchQuery}
+            onSelect={handleSearchSelect}
+            placeholder="Search any city for live weather..."
+            icon={<Search className="h-4 w-4 text-muted-foreground" />}
             className="flex-1"
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           />
           <Button onClick={handleSearch} disabled={searching} size="sm" className="shrink-0">
             {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
