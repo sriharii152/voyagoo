@@ -465,9 +465,19 @@ const OfflineMapDownloader = ({ map }: OfflineMapDownloaderProps) => {
             {/* Saved Regions */}
             {savedRegions.length > 0 && !downloading && (
               <div className="mt-4 border-t border-border pt-4">
-                <h5 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Saved Regions
-                </h5>
+                <div className="flex items-center justify-between mb-2">
+                  <h5 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Saved Regions
+                  </h5>
+                  <button
+                    onClick={() => setShowOverlays(!showOverlays)}
+                    className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+                    title={showOverlays ? "Hide overlays on map" : "Show overlays on map"}
+                  >
+                    {showOverlays ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+                    {showOverlays ? "Visible" : "Hidden"}
+                  </button>
+                </div>
                 <div className="space-y-2 max-h-[200px] overflow-y-auto">
                   {savedRegions.map((region) => (
                     <div key={region.id} className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg group">
