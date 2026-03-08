@@ -49,7 +49,7 @@ const Navbar = () => {
           )}
           <Link to="/" className="flex items-center gap-2 group">
             <Compass className="h-7 w-7 text-primary transition-transform group-hover:rotate-45" />
-            <span className="font-display text-xl font-bold text-foreground">Wanderlust</span>
+            <span className="font-display text-xl font-bold text-foreground">Voyago</span>
           </Link>
         </div>
 

@@ -16,7 +16,7 @@ const Footer = () => {
             <Link to="/planner" className="hover:text-background transition-colors">Planner</Link>
             <Link to="/budget" className="hover:text-background transition-colors">Budget</Link>
           </div>
-          <p className="text-sm text-background/40">© 2026 Wanderlust. All rights reserved.</p>
+          <p className="text-sm text-background/40">© 2026 Voyago. All rights reserved.</p>
         </div>
       </div>
     </footer>
