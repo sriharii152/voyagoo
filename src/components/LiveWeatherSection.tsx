@@ -222,6 +222,21 @@ const LiveWeatherSection = () => {
     setRefreshing(false);
   };
 
+  const handleSearchSelect = async (suggestion: { name: string; country: string; latitude: number; longitude: number }) => {
+    const existing = weatherData.find(
+      (w) => w.city.toLowerCase() === suggestion.name.toLowerCase()
+    );
+    if (!existing) {
+      setSearching(true);
+      try {
+        const weather = await fetchWeather(suggestion.name, suggestion.country, suggestion.latitude, suggestion.longitude);
+        setWeatherData((prev) => [weather, ...prev]);
+      } catch {}
+      setSearching(false);
+    }
+    setSearchQuery("");
+  };
+
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
     setSearching(true);
