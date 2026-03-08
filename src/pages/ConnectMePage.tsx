@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/hooks/use-toast";
 import { Link2, MessageCircle } from "lucide-react";
+import useConnectNotifications from "@/hooks/useConnectNotifications";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import GroupSidebar from "@/components/connect/GroupSidebar";
