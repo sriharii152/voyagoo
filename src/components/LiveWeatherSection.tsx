@@ -145,6 +145,25 @@ async function geocodeCity(query: string): Promise<GeoResult | null> {
   return null;
 }
 
+async function geocodeSuggestions(query: string): Promise<GeoResult[]> {
+  if (query.length < 2) return [];
+  try {
+    const res = await fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=6&language=en`
+    );
+    const data = await res.json();
+    if (data.results?.length) {
+      return data.results.map((r: any) => ({
+        name: r.name,
+        country: r.country ?? "",
+        latitude: r.latitude,
+        longitude: r.longitude,
+      }));
+    }
+  } catch {}
+  return [];
+}
+
 async function fetchWeather(
   city: string,
   country: string,
