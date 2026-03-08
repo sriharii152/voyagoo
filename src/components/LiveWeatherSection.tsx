@@ -341,14 +341,37 @@ const LiveWeatherSection = () => {
     <div>
       {/* Search & Refresh bar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
-        <div className="flex-1 flex gap-2">
-          <Input
-            placeholder="Search any city for live weather..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            className="flex-1"
-          />
+        <div className="flex-1 flex gap-2" ref={containerRef}>
+          <div className="relative flex-1">
+            <Input
+              placeholder="Search any city for live weather..."
+              value={searchQuery}
+              onChange={(e) => handleInputChange(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+              className="flex-1"
+            />
+            {/* Autocomplete dropdown */}
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-card border border-border rounded-lg shadow-lg overflow-hidden">
+                {suggestions.map((s, idx) => (
+                  <button
+                    key={`${s.name}-${s.country}-${s.latitude}`}
+                    onClick={() => selectSuggestion(s)}
+                    className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-sm text-left transition-colors ${
+                      idx === activeSuggestion
+                        ? "bg-accent/15 text-foreground"
+                        : "text-foreground hover:bg-muted"
+                    }`}
+                  >
+                    <MapPin className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                    <span className="font-medium">{s.name}</span>
+                    <span className="text-muted-foreground text-xs">{s.country}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           <Button onClick={handleSearch} disabled={searching} size="sm" className="shrink-0">
             {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
             <span className="ml-1.5 hidden sm:inline">Search</span>
