@@ -21,6 +21,7 @@ import {
   CloudFog,
   CloudLightning,
   Loader2,
+  MapPin,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
