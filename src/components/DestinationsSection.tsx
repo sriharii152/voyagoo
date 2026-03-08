@@ -171,7 +171,7 @@ const DestinationsSection = () => {
           viewport={{ once: true }}
           className="mt-16"
         >
-          <MapPlaceholder height="h-[350px]" interactive={false} />
+          <InteractiveMap height="h-[350px]" interactive={false} />
           <div className="text-center mt-6">
             <Link to="/explore">
               <Button variant="hero">Open Full Map</Button>
