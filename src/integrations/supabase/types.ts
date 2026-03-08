@@ -55,6 +55,89 @@ export type Database = {
           },
         ]
       }
+      diary_entries: {
+        Row: {
+          created_at: string
+          destination: string
+          entry_date: string
+          foods: string | null
+          id: string
+          is_public: boolean
+          notes: string | null
+          places: string | null
+          title: string
+          updated_at: string
+          user_id: string
+          views_description: string | null
+        }
+        Insert: {
+          created_at?: string
+          destination?: string
+          entry_date?: string
+          foods?: string | null
+          id?: string
+          is_public?: boolean
+          notes?: string | null
+          places?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+          views_description?: string | null
+        }
+        Update: {
+          created_at?: string
+          destination?: string
+          entry_date?: string
+          foods?: string | null
+          id?: string
+          is_public?: boolean
+          notes?: string | null
+          places?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+          views_description?: string | null
+        }
+        Relationships: []
+      }
+      diary_media: {
+        Row: {
+          caption: string | null
+          created_at: string
+          entry_id: string
+          file_path: string
+          file_type: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          entry_id: string
+          file_path: string
+          file_type?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          entry_id?: string
+          file_path?: string
+          file_type?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "diary_media_entry_id_fkey"
+            columns: ["entry_id"]
+            isOneToOne: false
+            referencedRelation: "diary_entries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       favorite_destinations: {
         Row: {
           created_at: string
