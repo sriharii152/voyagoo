@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Compass } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, Compass, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { label: "Destinations", href: "/destinations" },
@@ -15,6 +22,13 @@ const navItems = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut, loading } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
@@ -39,9 +53,48 @@ const Navbar = () => {
               {item.label}
             </Link>
           ))}
-          <Button variant="hero" size="sm" className="ml-3">
-            Start Planning
-          </Button>
+
+          {!loading && (
+            <>
+              {user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="ml-3 flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 transition-colors">
+                      {user.user_metadata?.avatar_url ? (
+                        <img
+                          src={user.user_metadata.avatar_url}
+                          alt="Avatar"
+                          className="h-7 w-7 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center">
+                          <User className="h-4 w-4 text-primary-foreground" />
+                        </div>
+                      )}
+                      <span className="text-sm font-medium text-foreground max-w-[120px] truncate">
+                        {user.user_metadata?.full_name || user.email?.split("@")[0]}
+                      </span>
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem className="text-xs text-muted-foreground">
+                      {user.email}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Sign out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link to="/auth">
+                  <Button variant="hero" size="sm" className="ml-3">
+                    Sign In
+                  </Button>
+                </Link>
+              )}
+            </>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -74,9 +127,20 @@ const Navbar = () => {
                   {item.label}
                 </Link>
               ))}
-              <Button variant="hero" size="sm" className="w-full mt-2">
-                Start Planning
-              </Button>
+              {user ? (
+                <button
+                  onClick={() => { handleSignOut(); setOpen(false); }}
+                  className="w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-destructive hover:bg-muted"
+                >
+                  Sign out
+                </button>
+              ) : (
+                <Link to="/auth" onClick={() => setOpen(false)}>
+                  <Button variant="hero" size="sm" className="w-full mt-2">
+                    Sign In
+                  </Button>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
