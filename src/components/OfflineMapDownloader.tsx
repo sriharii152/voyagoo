@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, MapPin, Trash2, WifiOff, Check, Loader2, X, Square } from "lucide-react";
+import { Download, MapPin, Trash2, WifiOff, Check, Loader2, X, Square, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
