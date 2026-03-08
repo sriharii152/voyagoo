@@ -84,7 +84,7 @@ const AuthPage = () => {
         <div className="bg-card rounded-3xl border border-border p-8 shadow-travel-hover">
           <div className="flex items-center gap-2 justify-center mb-2">
             <Compass className="h-8 w-8 text-primary" />
-            <span className="font-display text-2xl font-bold text-foreground">Wanderlust</span>
+            <span className="font-display text-2xl font-bold text-foreground">Voyago</span>
           </div>
           <p className="text-center text-muted-foreground text-sm mb-8">
             {isLogin ? "Welcome back, traveler!" : "Start your journey today"}
