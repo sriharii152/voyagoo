@@ -17,6 +17,8 @@ const navItems = [
   { label: "Trip Planner", href: "/planner" },
   { label: "Budget", href: "/budget" },
   { label: "Events", href: "/events" },
+  { label: "Activities", href: "/activities" },
+  { label: "Safety", href: "/safety" },
 ];
 
 const Navbar = () => {
