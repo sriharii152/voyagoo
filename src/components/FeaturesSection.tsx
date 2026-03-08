@@ -1,0 +1,55 @@
+import { motion } from "framer-motion";
+import { Map, CalendarDays, Wallet, Music, Hotel, Navigation } from "lucide-react";
+
+const features = [
+  { icon: Map, title: "Destination Explorer", desc: "Browse curated destinations with stunning visuals and local tips", color: "text-ocean" },
+  { icon: CalendarDays, title: "Trip Planner", desc: "Build day-by-day itineraries with smart scheduling and reminders", color: "text-primary" },
+  { icon: Wallet, title: "Budget Tracker", desc: "Set budgets, log expenses, and get real-time spending breakdowns", color: "text-forest" },
+  { icon: Music, title: "Nearby Events", desc: "Discover local festivals, concerts, and cultural happenings", color: "text-sunset" },
+  { icon: Hotel, title: "Hotel Booking", desc: "Compare and book hotels with best price guarantees", color: "text-ocean" },
+  { icon: Navigation, title: "Smart Navigator", desc: "Offline maps, turn-by-turn directions, and saved routes", color: "text-primary" },
+];
+
+const FeaturesSection = () => {
+  return (
+    <section className="py-24 bg-muted/50">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <span className="text-primary font-semibold text-sm uppercase tracking-widest">Features</span>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">
+            Everything You Need
+          </h2>
+          <p className="text-muted-foreground mt-4 max-w-lg mx-auto">
+            One app to plan, explore, budget, and navigate your adventures
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((feat, i) => (
+            <motion.div
+              key={feat.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="bg-card rounded-2xl p-8 shadow-travel hover:shadow-travel-hover transition-all duration-300 group cursor-pointer border border-border/50"
+            >
+              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-muted mb-5 ${feat.color} transition-transform group-hover:scale-110`}>
+                <feat.icon className="h-6 w-6" />
+              </div>
+              <h3 className="font-display text-xl font-semibold text-card-foreground mb-2">{feat.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{feat.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FeaturesSection;
