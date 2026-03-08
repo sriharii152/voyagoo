@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MapPin, ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-travel.jpg";
+import JourneyPlannerModal from "@/components/JourneyPlannerModal";
 
 const HeroSection = () => {
+  const [journeyOpen, setJourneyOpen] = useState(false);
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
       <img
@@ -35,7 +39,12 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="hero" size="lg" className="text-base px-8 py-6">
+            <Button
+              variant="hero"
+              size="lg"
+              className="text-base px-8 py-6"
+              onClick={() => setJourneyOpen(true)}
+            >
               Start Your Journey <ArrowRight className="ml-1 h-5 w-5" />
             </Button>
             <Button variant="outline" size="lg" className="text-base px-8 py-6 bg-card/10 backdrop-blur-sm border-card/30 text-primary-foreground hover:bg-card/20 hover:text-primary-foreground">
@@ -55,6 +64,8 @@ const HeroSection = () => {
           <div className="w-1.5 h-3 bg-primary-foreground/70 rounded-full" />
         </div>
       </motion.div>
+
+      <JourneyPlannerModal open={journeyOpen} onClose={() => setJourneyOpen(false)} />
     </section>
   );
 };
