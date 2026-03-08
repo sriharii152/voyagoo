@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Map, CalendarDays, Wallet, Music, Hotel, Navigation, Flame, ShieldCheck } from "lucide-react";
+import { Map, CalendarDays, Wallet, Music, Hotel, Navigation, Flame, ShieldCheck, Link2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const features = [
