@@ -310,7 +310,7 @@ const RouteNavigator = () => {
                   {mode === "driving" ? "Driving" : mode === "cycling" ? "Cycling" : "Walking"} route via roads
                 </p>
               </div>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-3">
                 <div className="bg-primary/10 rounded-xl px-4 py-2 text-center">
                   <p className="text-xs text-muted-foreground">Distance</p>
                   <p className="font-bold text-foreground">{route.totalDistance}</p>
@@ -321,6 +321,36 @@ const RouteNavigator = () => {
                     <Clock className="h-3.5 w-3.5" /> {route.totalDuration}
                   </p>
                 </div>
+                {mode === "driving" && (
+                  <div className="bg-accent/10 rounded-xl px-4 py-2 text-center">
+                    <p className="text-xs text-muted-foreground">Est. Fuel Cost</p>
+                    <p className="font-bold text-foreground flex items-center gap-1">
+                      <Fuel className="h-3.5 w-3.5" /> ₹{Math.round(route.totalDistanceKm / 15 * 105)}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">Petrol ~15 km/l</p>
+                  </div>
+                )}
+                {mode === "driving" && (
+                  <div className="bg-muted/50 rounded-xl px-4 py-2 text-center">
+                    <p className="text-xs text-muted-foreground">Diesel Est.</p>
+                    <p className="font-bold text-foreground flex items-center gap-1">
+                      <Fuel className="h-3.5 w-3.5" /> ₹{Math.round(route.totalDistanceKm / 20 * 90)}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">Diesel ~20 km/l</p>
+                  </div>
+                )}
+                {mode === "cycling" && (
+                  <div className="bg-accent/10 rounded-xl px-4 py-2 text-center">
+                    <p className="text-xs text-muted-foreground">Calories Burned</p>
+                    <p className="font-bold text-foreground">{Math.round(route.totalDistanceKm * 30)} cal</p>
+                  </div>
+                )}
+                {mode === "walking" && (
+                  <div className="bg-accent/10 rounded-xl px-4 py-2 text-center">
+                    <p className="text-xs text-muted-foreground">Steps Est.</p>
+                    <p className="font-bold text-foreground">{Math.round(route.totalDistanceKm * 1312).toLocaleString()}</p>
+                  </div>
+                )}
               </div>
             </div>
 
