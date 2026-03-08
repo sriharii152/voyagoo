@@ -178,6 +178,7 @@ const RouteNavigator = () => {
     }).addTo(map);
     routeLayerRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
+    setTimeout(() => map.invalidateSize(), 200);
     return () => {
       map.remove();
       mapRef.current = null;

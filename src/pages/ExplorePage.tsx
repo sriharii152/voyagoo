@@ -49,10 +49,10 @@ const ExplorePage = () => {
           </div>
 
           {tab === "route" ? (
-            <RouteNavigator />
+            <RouteNavigator key="route" />
           ) : (
             <>
-              <InteractiveMap height="h-[600px]" />
+              <InteractiveMap key="map" height="h-[600px]" />
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
                 {[
                   { icon: MapPin, title: "Pin Destinations", desc: "Mark and save your favorite spots on the map" },

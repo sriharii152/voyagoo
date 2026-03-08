@@ -94,6 +94,9 @@ const InteractiveMap = ({
     markersLayerRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
 
+    // Fix tiles not loading when container was hidden
+    setTimeout(() => map.invalidateSize(), 200);
+
     return () => {
       map.remove();
       mapRef.current = null;
