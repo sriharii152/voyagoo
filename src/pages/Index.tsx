@@ -9,10 +9,12 @@ import EventsSection from "@/components/EventsSection";
 import SafetyAlertsSection from "@/components/SafetyAlertsSection";
 import Footer from "@/components/Footer";
 import DiaryCarouselSection from "@/components/DiaryCarouselSection";
+import ConnectMeFloatingButton from "@/components/ConnectMeFloatingButton";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <ConnectMeFloatingButton />
       <Navbar />
       <HeroSection />
       <DestinationsSection />
