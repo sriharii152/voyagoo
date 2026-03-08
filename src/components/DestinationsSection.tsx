@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Star, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import MapPlaceholder from "@/components/MapPlaceholder";
 import destSantorini from "@/assets/dest-santorini.jpg";
 import destKyoto from "@/assets/dest-kyoto.jpg";
 import destMachuPicchu from "@/assets/dest-machupicchu.jpg";
