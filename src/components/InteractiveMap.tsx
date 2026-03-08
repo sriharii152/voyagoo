@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
-// Fix default marker icons in bundled environments
+// Fix default marker icons
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
@@ -14,15 +12,15 @@ L.Icon.Default.mergeOptions({
 });
 
 const createColorIcon = (color: string) =>
-  new L.DivIcon({
+  L.divIcon({
     className: "custom-marker",
-    html: `<div style="background:${color};width:28px;height:28px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;"></div>`,
+    html: `<div style="background:${color};width:28px;height:28px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);"></div>`,
     iconSize: [28, 28],
     iconAnchor: [14, 14],
     popupAnchor: [0, -16],
   });
 
-const markerColors: Record<MapMarker["type"], string> = {
+const markerColors: Record<string, string> = {
   destination: "hsl(24, 80%, 50%)",
   hotel: "hsl(195, 70%, 42%)",
   event: "hsl(160, 45%, 40%)",
@@ -46,29 +44,15 @@ const defaultMarkers: MapMarker[] = [
   { id: "5", name: "Jaipur, India", lat: 26.92, lng: 75.78, type: "destination", description: "The Pink City — heritage & royalty" },
   { id: "6", name: "Kerala, India", lat: 10.85, lng: 76.27, type: "destination", description: "God's Own Country — backwaters & spices" },
   { id: "7", name: "Sunset Beach Hotel", lat: 36.41, lng: 25.43, type: "hotel", description: "Luxury beachfront resort" },
-  { id: "8", name: "Cherry Blossom Festival", lat: 35.03, lng: 135.78, type: "event", description: "Annual sakura celebration in spring" },
-  { id: "9", name: "Warung Bali Restaurant", lat: -8.35, lng: 115.1, type: "restaurant", description: "Authentic Balinese cuisine" },
+  { id: "8", name: "Cherry Blossom Festival", lat: 35.03, lng: 135.78, type: "event", description: "Annual sakura celebration" },
+  { id: "9", name: "Warung Bali", lat: -8.35, lng: 115.1, type: "restaurant", description: "Authentic Balinese cuisine" },
 ];
-
-// Component to fly map to bounds when markers change
-function FitBounds({ markers }: { markers: MapMarker[] }) {
-  const map = useMap();
-  useEffect(() => {
-    if (markers.length > 0) {
-      const bounds = L.latLngBounds(markers.map((m) => [m.lat, m.lng]));
-      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 6 });
-    }
-  }, [markers, map]);
-  return null;
-}
 
 interface InteractiveMapProps {
   markers?: MapMarker[];
   className?: string;
   height?: string;
   interactive?: boolean;
-  center?: [number, number];
-  zoom?: number;
 }
 
 const InteractiveMap = ({
@@ -76,11 +60,12 @@ const InteractiveMap = ({
   className = "",
   height = "h-[500px]",
   interactive = true,
-  center = [20, 40],
-  zoom = 2,
 }: InteractiveMapProps) => {
+  const mapRef = useRef<L.Map | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const markersLayerRef = useRef<L.LayerGroup | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState<MapMarker["type"] | "all">("all");
+  const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const filteredMarkers = markers.filter(
     (m) =>
@@ -88,47 +73,65 @@ const InteractiveMap = ({
       m.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // Initialize map
+  useEffect(() => {
+    if (!containerRef.current || mapRef.current) return;
+
+    const map = L.map(containerRef.current, {
+      center: [20, 40],
+      zoom: 2,
+      scrollWheelZoom: interactive,
+      dragging: interactive,
+      zoomControl: interactive,
+      doubleClickZoom: interactive,
+      touchZoom: interactive,
+    });
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    markersLayerRef.current = L.layerGroup().addTo(map);
+    mapRef.current = map;
+
+    return () => {
+      map.remove();
+      mapRef.current = null;
+    };
+  }, [interactive]);
+
+  // Update markers when filter/search changes
+  useEffect(() => {
+    if (!mapRef.current || !markersLayerRef.current) return;
+
+    markersLayerRef.current.clearLayers();
+
+    filteredMarkers.forEach((m) => {
+      const marker = L.marker([m.lat, m.lng], {
+        icon: createColorIcon(markerColors[m.type] || markerColors.destination),
+      });
+
+      marker.bindPopup(`
+        <div style="min-width:180px">
+          <h3 style="font-weight:bold;font-size:14px;margin:0 0 4px">${m.name}</h3>
+          ${m.description ? `<p style="font-size:12px;color:#666;margin:0 0 8px">${m.description}</p>` : ""}
+          <span style="background:${markerColors[m.type]};color:white;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:bold;text-transform:uppercase">${m.type}</span>
+        </div>
+      `);
+
+      marker.addTo(markersLayerRef.current!);
+    });
+
+    // Fit bounds
+    if (filteredMarkers.length > 0) {
+      const bounds = L.latLngBounds(filteredMarkers.map((m) => [m.lat, m.lng] as L.LatLngTuple));
+      mapRef.current.fitBounds(bounds, { padding: [50, 50], maxZoom: 6 });
+    }
+  }, [filteredMarkers]);
+
   return (
     <div className={`relative rounded-2xl overflow-hidden border border-border ${height} ${className}`}>
-      <MapContainer
-        center={center}
-        zoom={zoom}
-        className="w-full h-full z-0"
-        scrollWheelZoom={interactive}
-        dragging={interactive}
-        zoomControl={interactive}
-        doubleClickZoom={interactive}
-        touchZoom={interactive}
-        attributionControl={true}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <FitBounds markers={filteredMarkers} />
-        {filteredMarkers.map((marker) => (
-          <Marker
-            key={marker.id}
-            position={[marker.lat, marker.lng]}
-            icon={createColorIcon(markerColors[marker.type])}
-          >
-            <Popup>
-              <div className="min-w-[180px]">
-                <h3 className="font-bold text-sm mb-1">{marker.name}</h3>
-                {marker.description && (
-                  <p className="text-xs text-gray-600 mb-2">{marker.description}</p>
-                )}
-                <span
-                  className="inline-block text-[10px] font-bold uppercase px-2 py-0.5 rounded-full text-white"
-                  style={{ background: markerColors[marker.type] }}
-                >
-                  {marker.type}
-                </span>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
+      <div ref={containerRef} className="w-full h-full z-0" />
 
       {/* Search & filter overlay */}
       {interactive && (
