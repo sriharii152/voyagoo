@@ -47,9 +47,11 @@ const HeroSection = () => {
             >
               Start Your Journey <ArrowRight className="ml-1 h-5 w-5" />
             </Button>
-            <Button variant="outline" size="lg" className="text-base px-8 py-6 bg-card/10 backdrop-blur-sm border-card/30 text-primary-foreground hover:bg-card/20 hover:text-primary-foreground">
-              Browse Destinations
-            </Button>
+            <Link to="/explore">
+              <Button variant="outline" size="lg" className="text-base px-8 py-6 bg-card/10 backdrop-blur-sm border-card/30 text-primary-foreground hover:bg-card/20 hover:text-primary-foreground">
+                Browse Destinations
+              </Button>
+            </Link>
           </div>
         </motion.div>
       </div>
