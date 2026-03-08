@@ -3,7 +3,7 @@ import { Star, MapPin, Globe, Flag, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import MapPlaceholder from "@/components/MapPlaceholder";
+import InteractiveMap from "@/components/InteractiveMap";
 import destSantorini from "@/assets/dest-santorini.jpg";
 import destKyoto from "@/assets/dest-kyoto.jpg";
 import destMachuPicchu from "@/assets/dest-machupicchu.jpg";
@@ -171,7 +171,7 @@ const DestinationsSection = () => {
           viewport={{ once: true }}
           className="mt-16"
         >
-          <MapPlaceholder height="h-[350px]" interactive={false} />
+          <InteractiveMap height="h-[350px]" interactive={false} />
           <div className="text-center mt-6">
             <Link to="/explore">
               <Button variant="hero">Open Full Map</Button>

@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import MapPlaceholder from "@/components/MapPlaceholder";
+import InteractiveMap from "@/components/InteractiveMap";
 import { motion } from "framer-motion";
 import { MapPin, Compass, Navigation } from "lucide-react";
 
@@ -20,11 +20,11 @@ const ExplorePage = () => {
               Interactive Map
             </h1>
             <p className="text-muted-foreground mt-4 max-w-lg mx-auto">
-              Discover destinations, hotels, and events on an interactive map
+              Discover destinations, hotels, and events on a real interactive map
             </p>
           </motion.div>
 
-          <MapPlaceholder height="h-[600px]" />
+          <InteractiveMap height="h-[600px]" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
             {[
