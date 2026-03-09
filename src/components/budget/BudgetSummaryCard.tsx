@@ -119,7 +119,7 @@ const BudgetSummaryCard = ({
               <div className="flex-1">
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-sm font-medium text-card-foreground">{cat.name}</span>
-                  <span className="text-sm font-semibold text-card-foreground">${cat.spent.toLocaleString()}</span>
+                  <span className="text-sm font-semibold text-card-foreground">₹{cat.spent.toLocaleString('en-IN')}</span>
                 </div>
                 <Progress value={budget > 0 ? (cat.spent / budget) * 100 : 0} className="h-1.5" />
               </div>
