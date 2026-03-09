@@ -323,8 +323,8 @@ const AutoTripPlanner = () => {
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-display font-bold text-foreground">{plan.destination}</h4>
               <div className="flex items-center gap-1 bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-bold">
-                <DollarSign className="h-3.5 w-3.5" />
-                ~${plan.totalPerPersonPerDay * numPeople}/day for {numPeople} {numPeople === 1 ? "person" : "people"}
+                <IndianRupee className="h-3.5 w-3.5" />
+                ~₹{(plan.totalPerPersonPerDay * numPeople).toLocaleString('en-IN')}/day for {numPeople} {numPeople === 1 ? "person" : "people"}
               </div>
             </div>
 
