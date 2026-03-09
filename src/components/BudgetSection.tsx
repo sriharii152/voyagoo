@@ -6,10 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 
 const categories = [
-  { name: "Transport", icon: Plane, spent: 450, color: "bg-ocean" },
-  { name: "Accommodation", icon: Hotel, spent: 680, color: "bg-primary" },
-  { name: "Food & Dining", icon: Utensils, spent: 320, color: "bg-forest" },
-  { name: "Shopping", icon: ShoppingBag, spent: 150, color: "bg-sunset" },
+  { name: "Transport", icon: Plane, spent: 37500, color: "bg-ocean" },
+  { name: "Accommodation", icon: Hotel, spent: 56500, color: "bg-primary" },
+  { name: "Food & Dining", icon: Utensils, spent: 26500, color: "bg-forest" },
+  { name: "Shopping", icon: ShoppingBag, spent: 12500, color: "bg-sunset" },
 ];
 
 const BudgetSection = () => {
