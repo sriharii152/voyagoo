@@ -46,7 +46,7 @@ const BudgetSection = () => {
               </div>
               <div className="text-right">
                 <p className="text-sm text-muted-foreground">Spent</p>
-                <p className="font-display text-3xl font-bold text-primary">${totalSpent.toLocaleString()}</p>
+                <p className="font-display text-3xl font-bold text-primary">₹{totalSpent.toLocaleString('en-IN')}</p>
               </div>
             </div>
 
