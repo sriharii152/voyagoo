@@ -95,7 +95,7 @@ const BudgetSummaryCard = ({
         <div className="text-right">
           <p className="text-sm text-muted-foreground">Spent</p>
           <p className={cn("font-display text-3xl font-bold", percentage >= 90 ? "text-destructive" : "text-primary")}>
-            ${totalSpent.toLocaleString()}
+            ₹{totalSpent.toLocaleString('en-IN')}
           </p>
         </div>
       </div>
