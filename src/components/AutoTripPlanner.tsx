@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Route, Hotel, UtensilsCrossed, CalendarHeart, Bus, DollarSign, Users, Loader2, Sparkles } from "lucide-react";
+import { MapPin, Route, Hotel, UtensilsCrossed, CalendarHeart, Bus, IndianRupee, Users, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
