@@ -52,7 +52,7 @@ const BudgetSection = () => {
 
             <div className="mb-2 flex justify-between text-xs text-muted-foreground">
               <span>{percentage.toFixed(0)}% used</span>
-              <span>${(budget - totalSpent).toLocaleString()} remaining</span>
+              <span>₹{(budget - totalSpent).toLocaleString('en-IN')} remaining</span>
             </div>
             <Progress value={percentage} className="h-3 mb-8" />
 
