@@ -25,24 +25,24 @@ interface JourneyPlace {
 
 const allPlaces: JourneyPlace[] = [
   // International
-  { name: "Santorini", country: "Greece", image: destSantorini, rating: 4.9, tag: "Romantic", category: "international", budgetPerPerson: 150, minDays: 4, maxDays: 10, bestForGroup: ["couple", "solo", "friends"] },
-  { name: "Kyoto", country: "Japan", image: destKyoto, rating: 4.8, tag: "Cultural", category: "international", budgetPerPerson: 120, minDays: 3, maxDays: 14, bestForGroup: ["couple", "solo", "friends", "family"] },
-  { name: "Machu Picchu", country: "Peru", image: destMachuPicchu, rating: 4.9, tag: "Adventure", category: "international", budgetPerPerson: 100, minDays: 3, maxDays: 7, bestForGroup: ["friends", "solo", "couple"] },
-  { name: "Bali", country: "Indonesia", image: destBali, rating: 4.7, tag: "Tropical", category: "international", budgetPerPerson: 60, minDays: 5, maxDays: 21, bestForGroup: ["couple", "solo", "friends", "family"] },
+  { name: "Santorini", country: "Greece", image: destSantorini, rating: 4.9, tag: "Romantic", category: "international", budgetPerPerson: 12500, minDays: 4, maxDays: 10, bestForGroup: ["couple", "solo", "friends"] },
+  { name: "Kyoto", country: "Japan", image: destKyoto, rating: 4.8, tag: "Cultural", category: "international", budgetPerPerson: 10000, minDays: 3, maxDays: 14, bestForGroup: ["couple", "solo", "friends", "family"] },
+  { name: "Machu Picchu", country: "Peru", image: destMachuPicchu, rating: 4.9, tag: "Adventure", category: "international", budgetPerPerson: 8500, minDays: 3, maxDays: 7, bestForGroup: ["friends", "solo", "couple"] },
+  { name: "Bali", country: "Indonesia", image: destBali, rating: 4.7, tag: "Tropical", category: "international", budgetPerPerson: 5000, minDays: 5, maxDays: 21, bestForGroup: ["couple", "solo", "friends", "family"] },
   // National
-  { name: "Jaipur", country: "Rajasthan", image: destSantorini, rating: 4.6, tag: "Heritage", category: "national", budgetPerPerson: 30, minDays: 2, maxDays: 5, bestForGroup: ["family", "couple", "friends"] },
-  { name: "Kerala", country: "God's Own Country", image: destBali, rating: 4.8, tag: "Nature", category: "national", budgetPerPerson: 35, minDays: 3, maxDays: 10, bestForGroup: ["couple", "family", "friends"] },
-  { name: "Varanasi", country: "Uttar Pradesh", image: destKyoto, rating: 4.5, tag: "Spiritual", category: "national", budgetPerPerson: 20, minDays: 2, maxDays: 5, bestForGroup: ["solo", "family", "friends"] },
-  { name: "Ladakh", country: "Jammu & Kashmir", image: destMachuPicchu, rating: 4.9, tag: "Adventure", category: "national", budgetPerPerson: 50, minDays: 5, maxDays: 14, bestForGroup: ["friends", "solo", "couple"] },
+  { name: "Jaipur", country: "Rajasthan", image: destSantorini, rating: 4.6, tag: "Heritage", category: "national", budgetPerPerson: 2500, minDays: 2, maxDays: 5, bestForGroup: ["family", "couple", "friends"] },
+  { name: "Kerala", country: "God's Own Country", image: destBali, rating: 4.8, tag: "Nature", category: "national", budgetPerPerson: 3000, minDays: 3, maxDays: 10, bestForGroup: ["couple", "family", "friends"] },
+  { name: "Varanasi", country: "Uttar Pradesh", image: destKyoto, rating: 4.5, tag: "Spiritual", category: "national", budgetPerPerson: 1700, minDays: 2, maxDays: 5, bestForGroup: ["solo", "family", "friends"] },
+  { name: "Ladakh", country: "Jammu & Kashmir", image: destMachuPicchu, rating: 4.9, tag: "Adventure", category: "national", budgetPerPerson: 4200, minDays: 5, maxDays: 14, bestForGroup: ["friends", "solo", "couple"] },
   // State
-  { name: "Munnar", country: "Kerala", image: destBali, rating: 4.7, tag: "Hill Station", category: "state", budgetPerPerson: 25, minDays: 2, maxDays: 5, bestForGroup: ["couple", "family", "friends"] },
-  { name: "Coorg", country: "Karnataka", image: destKyoto, rating: 4.6, tag: "Coffee Country", category: "state", budgetPerPerson: 20, minDays: 2, maxDays: 4, bestForGroup: ["couple", "friends", "family"] },
-  { name: "Ooty", country: "Tamil Nadu", image: destMachuPicchu, rating: 4.5, tag: "Scenic", category: "state", budgetPerPerson: 18, minDays: 2, maxDays: 5, bestForGroup: ["family", "couple", "friends"] },
-  { name: "Lonavala", country: "Maharashtra", image: destSantorini, rating: 4.4, tag: "Weekend Getaway", category: "state", budgetPerPerson: 15, minDays: 1, maxDays: 3, bestForGroup: ["couple", "friends", "family", "solo"] },
-  { name: "Goa", country: "India", image: destBali, rating: 4.8, tag: "Beach & Nightlife", category: "national", budgetPerPerson: 40, minDays: 3, maxDays: 10, bestForGroup: ["friends", "couple", "solo"] },
-  { name: "Manali", country: "Himachal Pradesh", image: destMachuPicchu, rating: 4.7, tag: "Snow & Adventure", category: "national", budgetPerPerson: 35, minDays: 3, maxDays: 7, bestForGroup: ["friends", "couple", "solo", "family"] },
-  { name: "Paris", country: "France", image: destSantorini, rating: 4.9, tag: "Romance & Art", category: "international", budgetPerPerson: 180, minDays: 4, maxDays: 10, bestForGroup: ["couple", "solo", "friends"] },
-  { name: "Dubai", country: "UAE", image: destKyoto, rating: 4.7, tag: "Luxury & Shopping", category: "international", budgetPerPerson: 200, minDays: 3, maxDays: 7, bestForGroup: ["family", "couple", "friends"] },
+  { name: "Munnar", country: "Kerala", image: destBali, rating: 4.7, tag: "Hill Station", category: "state", budgetPerPerson: 2100, minDays: 2, maxDays: 5, bestForGroup: ["couple", "family", "friends"] },
+  { name: "Coorg", country: "Karnataka", image: destKyoto, rating: 4.6, tag: "Coffee Country", category: "state", budgetPerPerson: 1700, minDays: 2, maxDays: 4, bestForGroup: ["couple", "friends", "family"] },
+  { name: "Ooty", country: "Tamil Nadu", image: destMachuPicchu, rating: 4.5, tag: "Scenic", category: "state", budgetPerPerson: 1500, minDays: 2, maxDays: 5, bestForGroup: ["family", "couple", "friends"] },
+  { name: "Lonavala", country: "Maharashtra", image: destSantorini, rating: 4.4, tag: "Weekend Getaway", category: "state", budgetPerPerson: 1250, minDays: 1, maxDays: 3, bestForGroup: ["couple", "friends", "family", "solo"] },
+  { name: "Goa", country: "India", image: destBali, rating: 4.8, tag: "Beach & Nightlife", category: "national", budgetPerPerson: 3300, minDays: 3, maxDays: 10, bestForGroup: ["friends", "couple", "solo"] },
+  { name: "Manali", country: "Himachal Pradesh", image: destMachuPicchu, rating: 4.7, tag: "Snow & Adventure", category: "national", budgetPerPerson: 2900, minDays: 3, maxDays: 7, bestForGroup: ["friends", "couple", "solo", "family"] },
+  { name: "Paris", country: "France", image: destSantorini, rating: 4.9, tag: "Romance & Art", category: "international", budgetPerPerson: 15000, minDays: 4, maxDays: 10, bestForGroup: ["couple", "solo", "friends"] },
+  { name: "Dubai", country: "UAE", image: destKyoto, rating: 4.7, tag: "Luxury & Shopping", category: "international", budgetPerPerson: 16700, minDays: 3, maxDays: 7, bestForGroup: ["family", "couple", "friends"] },
 ];
 
 const categoryBadgeColors: Record<string, string> = {
