@@ -125,7 +125,7 @@ const JourneyPlannerModal = ({ open, onClose }: JourneyPlannerModalProps) => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                   <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center gap-1">
-                    <Wallet className="h-3.5 w-3.5" /> Total Budget ($)
+                    <Wallet className="h-3.5 w-3.5" /> Total Budget (₹)
                   </label>
                   <Input
                     type="number"
