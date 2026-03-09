@@ -371,7 +371,7 @@ const AutoTripPlanner = () => {
                       <p className="text-sm font-medium text-foreground">{r.from} → {r.to}</p>
                       <p className="text-xs text-muted-foreground">{r.mode} · {r.duration}</p>
                     </div>
-                    <span className="text-xs font-semibold text-primary">${r.cost * numPeople}</span>
+                    <span className="text-xs font-semibold text-primary">₹{(r.cost * numPeople).toLocaleString('en-IN')}</span>
                   </div>
                 ))}
 
