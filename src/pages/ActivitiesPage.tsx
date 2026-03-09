@@ -22,18 +22,18 @@ interface Activity {
 }
 
 const allActivities: Activity[] = [
-  { name: "Scuba Diving", type: "Water Sports", destination: "Bali, Indonesia", description: "Explore vibrant coral reefs and swim with manta rays in crystal-clear waters.", cost: 80, duration: "3 hrs", difficulty: "Moderate", image: "🤿" },
-  { name: "Paragliding", type: "Air Sports", destination: "Manali, India", description: "Soar over the Himalayas with panoramic views of snow-capped peaks.", cost: 25, duration: "30 min", difficulty: "Easy", image: "🪂" },
-  { name: "Bungee Jumping", type: "Extreme", destination: "Queenstown, NZ", description: "Jump from the legendary Kawarau Bridge — the world's first bungee site.", cost: 150, duration: "1 hr", difficulty: "Extreme", image: "🎢" },
-  { name: "Cooking Class", type: "Cultural", destination: "Bangkok, Thailand", description: "Learn to cook authentic Pad Thai and Tom Yum from local chefs.", cost: 35, duration: "4 hrs", difficulty: "Easy", image: "👨‍🍳" },
-  { name: "Hot Air Balloon", type: "Air Sports", destination: "Cappadocia, Turkey", description: "Float over fairy chimneys and ancient cave dwellings at sunrise.", cost: 200, duration: "1.5 hrs", difficulty: "Easy", image: "🎈" },
-  { name: "White Water Rafting", type: "Water Sports", destination: "Rishikesh, India", description: "Navigate Grade III-IV rapids on the holy Ganges river.", cost: 30, duration: "3 hrs", difficulty: "Moderate", image: "🚣" },
-  { name: "Volcano Hike", type: "Trekking", destination: "Santorini, Greece", description: "Hike the volcanic caldera and soak in natural hot springs.", cost: 20, duration: "4 hrs", difficulty: "Moderate", image: "🌋" },
-  { name: "Camel Safari", type: "Desert", destination: "Jaisalmer, India", description: "Ride through the Thar Desert dunes under a starlit sky.", cost: 15, duration: "Full Day", difficulty: "Easy", image: "🐪" },
-  { name: "Surfing Lessons", type: "Water Sports", destination: "Gold Coast, Australia", description: "Learn to surf on world-class waves with certified instructors.", cost: 60, duration: "2 hrs", difficulty: "Moderate", image: "🏄" },
-  { name: "Northern Lights Chase", type: "Nature", destination: "Tromsø, Norway", description: "Chase the aurora borealis through Arctic wilderness with expert guides.", cost: 150, duration: "6 hrs", difficulty: "Easy", image: "🌌" },
-  { name: "Tea Ceremony", type: "Cultural", destination: "Kyoto, Japan", description: "Experience the ancient art of Japanese tea preparation in a zen garden.", cost: 30, duration: "1 hr", difficulty: "Easy", image: "🍵" },
-  { name: "Zip Line Adventure", type: "Extreme", destination: "Costa Rica", description: "Glide through rainforest canopy on high-speed zip lines.", cost: 55, duration: "2 hrs", difficulty: "Moderate", image: "🏗️" },
+  { name: "Scuba Diving", type: "Water Sports", destination: "Bali, Indonesia", description: "Explore vibrant coral reefs and swim with manta rays in crystal-clear waters.", cost: 6700, duration: "3 hrs", difficulty: "Moderate", image: "🤿" },
+  { name: "Paragliding", type: "Air Sports", destination: "Manali, India", description: "Soar over the Himalayas with panoramic views of snow-capped peaks.", cost: 2100, duration: "30 min", difficulty: "Easy", image: "🪂" },
+  { name: "Bungee Jumping", type: "Extreme", destination: "Queenstown, NZ", description: "Jump from the legendary Kawarau Bridge — the world's first bungee site.", cost: 12500, duration: "1 hr", difficulty: "Extreme", image: "🎢" },
+  { name: "Cooking Class", type: "Cultural", destination: "Bangkok, Thailand", description: "Learn to cook authentic Pad Thai and Tom Yum from local chefs.", cost: 2900, duration: "4 hrs", difficulty: "Easy", image: "👨‍🍳" },
+  { name: "Hot Air Balloon", type: "Air Sports", destination: "Cappadocia, Turkey", description: "Float over fairy chimneys and ancient cave dwellings at sunrise.", cost: 16700, duration: "1.5 hrs", difficulty: "Easy", image: "🎈" },
+  { name: "White Water Rafting", type: "Water Sports", destination: "Rishikesh, India", description: "Navigate Grade III-IV rapids on the holy Ganges river.", cost: 2500, duration: "3 hrs", difficulty: "Moderate", image: "🚣" },
+  { name: "Volcano Hike", type: "Trekking", destination: "Santorini, Greece", description: "Hike the volcanic caldera and soak in natural hot springs.", cost: 1700, duration: "4 hrs", difficulty: "Moderate", image: "🌋" },
+  { name: "Camel Safari", type: "Desert", destination: "Jaisalmer, India", description: "Ride through the Thar Desert dunes under a starlit sky.", cost: 1250, duration: "Full Day", difficulty: "Easy", image: "🐪" },
+  { name: "Surfing Lessons", type: "Water Sports", destination: "Gold Coast, Australia", description: "Learn to surf on world-class waves with certified instructors.", cost: 5000, duration: "2 hrs", difficulty: "Moderate", image: "🏄" },
+  { name: "Northern Lights Chase", type: "Nature", destination: "Tromsø, Norway", description: "Chase the aurora borealis through Arctic wilderness with expert guides.", cost: 12500, duration: "6 hrs", difficulty: "Easy", image: "🌌" },
+  { name: "Tea Ceremony", type: "Cultural", destination: "Kyoto, Japan", description: "Experience the ancient art of Japanese tea preparation in a zen garden.", cost: 2500, duration: "1 hr", difficulty: "Easy", image: "🍵" },
+  { name: "Zip Line Adventure", type: "Extreme", destination: "Costa Rica", description: "Glide through rainforest canopy on high-speed zip lines.", cost: 4600, duration: "2 hrs", difficulty: "Moderate", image: "🏗️" },
 ];
 
 const activityTypes = ["All", "Water Sports", "Air Sports", "Extreme", "Cultural", "Trekking", "Desert", "Nature"];
