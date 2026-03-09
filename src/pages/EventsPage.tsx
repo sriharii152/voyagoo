@@ -22,17 +22,17 @@ interface Event {
 
 const allEvents: Event[] = [
   { title: "Lantern Festival", location: "Kyoto, Japan", date: "Mar 15, 2026", time: "6:00 PM", category: "Cultural", price: "Free", description: "Thousands of lanterns illuminate the streets of Kyoto in this magical annual celebration." },
-  { title: "Beach Music Fest", location: "Bali, Indonesia", date: "Mar 22, 2026", time: "4:00 PM", category: "Music", price: "$45", description: "Three days of live music, DJs, and beach parties on Bali's famous shores." },
-  { title: "Wine Tasting Tour", location: "Santorini, Greece", date: "Apr 3, 2026", time: "2:00 PM", category: "Food & Drink", price: "$65", description: "Sample the finest wines from volcanic vineyards with stunning caldera views." },
-  { title: "Inca Trail Marathon", location: "Cusco, Peru", date: "Apr 10, 2026", time: "7:00 AM", category: "Sports", price: "$30", description: "Run through ancient Incan paths with breathtaking mountain scenery." },
+  { title: "Beach Music Fest", location: "Bali, Indonesia", date: "Mar 22, 2026", time: "4:00 PM", category: "Music", price: "₹3,750", description: "Three days of live music, DJs, and beach parties on Bali's famous shores." },
+  { title: "Wine Tasting Tour", location: "Santorini, Greece", date: "Apr 3, 2026", time: "2:00 PM", category: "Food & Drink", price: "₹5,400", description: "Sample the finest wines from volcanic vineyards with stunning caldera views." },
+  { title: "Inca Trail Marathon", location: "Cusco, Peru", date: "Apr 10, 2026", time: "7:00 AM", category: "Sports", price: "₹2,500", description: "Run through ancient Incan paths with breathtaking mountain scenery." },
   { title: "Cherry Blossom Viewing", location: "Tokyo, Japan", date: "Apr 1, 2026", time: "10:00 AM", category: "Cultural", price: "Free", description: "Join thousands under blooming cherry trees in Ueno Park." },
   { title: "Holi Color Festival", location: "Jaipur, India", date: "Mar 14, 2026", time: "9:00 AM", category: "Cultural", price: "Free", description: "The most vibrant festival of colors celebrating spring and love." },
-  { title: "Full Moon Party", location: "Koh Phangan, Thailand", date: "Mar 25, 2026", time: "9:00 PM", category: "Music", price: "$15", description: "World-famous beach party under the full moon with fire shows and DJs." },
-  { title: "Street Food Festival", location: "Bangkok, Thailand", date: "Mar 28, 2026", time: "5:00 PM", category: "Food & Drink", price: "$10", description: "Over 200 street food vendors showcasing the best of Thai cuisine." },
-  { title: "Desert Safari Adventure", location: "Dubai, UAE", date: "Apr 5, 2026", time: "3:00 PM", category: "Adventure", price: "$80", description: "Dune bashing, camel rides, and BBQ dinner under the stars." },
-  { title: "Yoga Retreat", location: "Rishikesh, India", date: "Apr 15, 2026", time: "6:00 AM", category: "Wellness", price: "$120", description: "A 3-day immersive yoga and meditation retreat by the Ganges." },
-  { title: "Tango Night", location: "Buenos Aires, Argentina", date: "Apr 20, 2026", time: "8:00 PM", category: "Music", price: "$25", description: "Live tango performances and dance lessons in the heart of Buenos Aires." },
-  { title: "Northern Lights Tour", location: "Tromsø, Norway", date: "Mar 10, 2026", time: "10:00 PM", category: "Adventure", price: "$150", description: "Chase the aurora borealis with expert guides in Arctic Norway." },
+  { title: "Full Moon Party", location: "Koh Phangan, Thailand", date: "Mar 25, 2026", time: "9:00 PM", category: "Music", price: "₹1,250", description: "World-famous beach party under the full moon with fire shows and DJs." },
+  { title: "Street Food Festival", location: "Bangkok, Thailand", date: "Mar 28, 2026", time: "5:00 PM", category: "Food & Drink", price: "₹850", description: "Over 200 street food vendors showcasing the best of Thai cuisine." },
+  { title: "Desert Safari Adventure", location: "Dubai, UAE", date: "Apr 5, 2026", time: "3:00 PM", category: "Adventure", price: "₹6,700", description: "Dune bashing, camel rides, and BBQ dinner under the stars." },
+  { title: "Yoga Retreat", location: "Rishikesh, India", date: "Apr 15, 2026", time: "6:00 AM", category: "Wellness", price: "₹10,000", description: "A 3-day immersive yoga and meditation retreat by the Ganges." },
+  { title: "Tango Night", location: "Buenos Aires, Argentina", date: "Apr 20, 2026", time: "8:00 PM", category: "Music", price: "₹2,100", description: "Live tango performances and dance lessons in the heart of Buenos Aires." },
+  { title: "Northern Lights Tour", location: "Tromsø, Norway", date: "Mar 10, 2026", time: "10:00 PM", category: "Adventure", price: "₹12,500", description: "Chase the aurora borealis with expert guides in Arctic Norway." },
 ];
 
 const categoryColors: Record<string, string> = {

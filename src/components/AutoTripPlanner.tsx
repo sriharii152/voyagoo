@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Route, Hotel, UtensilsCrossed, CalendarHeart, Bus, DollarSign, Users, Loader2, Sparkles } from "lucide-react";
+import { MapPin, Route, Hotel, UtensilsCrossed, CalendarHeart, Bus, IndianRupee, Users, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -19,205 +19,205 @@ const destinationPlans: Record<string, TripPlan> = {
   bali: {
     destination: "Bali, Indonesia",
     route: [
-      { from: "Airport", to: "Ubud", mode: "Private Car", duration: "1.5 hrs", cost: 25 },
-      { from: "Ubud", to: "Seminyak", mode: "Scooter", duration: "1 hr", cost: 8 },
-      { from: "Seminyak", to: "Uluwatu", mode: "Taxi", duration: "45 min", cost: 15 },
+      { from: "Airport", to: "Ubud", mode: "Private Car", duration: "1.5 hrs", cost: 2100 },
+      { from: "Ubud", to: "Seminyak", mode: "Scooter", duration: "1 hr", cost: 650 },
+      { from: "Seminyak", to: "Uluwatu", mode: "Taxi", duration: "45 min", cost: 1250 },
     ],
     stay: [
-      { type: "Budget", name: "Cozy Guesthouse", costPerNight: 20, rating: 4.2 },
-      { type: "Mid-Range", name: "Boutique Villa", costPerNight: 60, rating: 4.6 },
-      { type: "Luxury", name: "Beachfront Resort", costPerNight: 150, rating: 4.9 },
+      { type: "Budget", name: "Cozy Guesthouse", costPerNight: 1650, rating: 4.2 },
+      { type: "Mid-Range", name: "Boutique Villa", costPerNight: 5000, rating: 4.6 },
+      { type: "Luxury", name: "Beachfront Resort", costPerNight: 12500, rating: 4.9 },
     ],
     food: [
-      { meal: "Breakfast", suggestion: "Smoothie Bowl Café", costPerMeal: 5 },
-      { meal: "Lunch", suggestion: "Local Warung", costPerMeal: 3 },
-      { meal: "Dinner", suggestion: "Beachside Grill", costPerMeal: 12 },
+      { meal: "Breakfast", suggestion: "Smoothie Bowl Café", costPerMeal: 400 },
+      { meal: "Lunch", suggestion: "Local Warung", costPerMeal: 250 },
+      { meal: "Dinner", suggestion: "Beachside Grill", costPerMeal: 1000 },
     ],
     events: [
-      { name: "Uluwatu Temple Sunset", type: "Cultural", cost: 5, duration: "2 hrs" },
-      { name: "Rice Terrace Trek", type: "Adventure", cost: 15, duration: "3 hrs" },
-      { name: "Cooking Class", type: "Experience", cost: 25, duration: "4 hrs" },
+      { name: "Uluwatu Temple Sunset", type: "Cultural", cost: 400, duration: "2 hrs" },
+      { name: "Rice Terrace Trek", type: "Adventure", cost: 1250, duration: "3 hrs" },
+      { name: "Cooking Class", type: "Experience", cost: 2100, duration: "4 hrs" },
     ],
     transport: [
-      { mode: "Scooter Rental", description: "Most popular for exploring", costPerDay: 8 },
-      { mode: "Private Driver", description: "Comfortable full-day tours", costPerDay: 40 },
-      { mode: "Grab/Gojek", description: "On-demand rides", costPerDay: 15 },
+      { mode: "Scooter Rental", description: "Most popular for exploring", costPerDay: 650 },
+      { mode: "Private Driver", description: "Comfortable full-day tours", costPerDay: 3300 },
+      { mode: "Grab/Gojek", description: "On-demand rides", costPerDay: 1250 },
     ],
-    totalPerPersonPerDay: 60,
+    totalPerPersonPerDay: 5000,
   },
   santorini: {
     destination: "Santorini, Greece",
     route: [
-      { from: "Airport", to: "Fira", mode: "Bus", duration: "30 min", cost: 5 },
-      { from: "Fira", to: "Oia", mode: "Bus", duration: "25 min", cost: 3 },
-      { from: "Oia", to: "Red Beach", mode: "Taxi", duration: "20 min", cost: 20 },
+      { from: "Airport", to: "Fira", mode: "Bus", duration: "30 min", cost: 400 },
+      { from: "Fira", to: "Oia", mode: "Bus", duration: "25 min", cost: 250 },
+      { from: "Oia", to: "Red Beach", mode: "Taxi", duration: "20 min", cost: 1650 },
     ],
     stay: [
-      { type: "Budget", name: "Hostel in Fira", costPerNight: 40, rating: 4.0 },
-      { type: "Mid-Range", name: "Cave Hotel", costPerNight: 120, rating: 4.7 },
-      { type: "Luxury", name: "Caldera View Suite", costPerNight: 300, rating: 4.9 },
+      { type: "Budget", name: "Hostel in Fira", costPerNight: 3300, rating: 4.0 },
+      { type: "Mid-Range", name: "Cave Hotel", costPerNight: 10000, rating: 4.7 },
+      { type: "Luxury", name: "Caldera View Suite", costPerNight: 25000, rating: 4.9 },
     ],
     food: [
-      { meal: "Breakfast", suggestion: "Greek Bakery", costPerMeal: 8 },
-      { meal: "Lunch", suggestion: "Seaside Taverna", costPerMeal: 15 },
-      { meal: "Dinner", suggestion: "Fine Dining Sunset", costPerMeal: 40 },
+      { meal: "Breakfast", suggestion: "Greek Bakery", costPerMeal: 650 },
+      { meal: "Lunch", suggestion: "Seaside Taverna", costPerMeal: 1250 },
+      { meal: "Dinner", suggestion: "Fine Dining Sunset", costPerMeal: 3300 },
     ],
     events: [
-      { name: "Sunset Catamaran Cruise", type: "Romantic", cost: 80, duration: "5 hrs" },
-      { name: "Wine Tasting Tour", type: "Experience", cost: 35, duration: "3 hrs" },
-      { name: "Volcano Hike", type: "Adventure", cost: 20, duration: "4 hrs" },
+      { name: "Sunset Catamaran Cruise", type: "Romantic", cost: 6700, duration: "5 hrs" },
+      { name: "Wine Tasting Tour", type: "Experience", cost: 2900, duration: "3 hrs" },
+      { name: "Volcano Hike", type: "Adventure", cost: 1650, duration: "4 hrs" },
     ],
     transport: [
-      { mode: "ATV Rental", description: "Fun island exploration", costPerDay: 30 },
-      { mode: "Public Bus", description: "Budget-friendly routes", costPerDay: 10 },
-      { mode: "Private Transfer", description: "Door-to-door comfort", costPerDay: 60 },
+      { mode: "ATV Rental", description: "Fun island exploration", costPerDay: 2500 },
+      { mode: "Public Bus", description: "Budget-friendly routes", costPerDay: 850 },
+      { mode: "Private Transfer", description: "Door-to-door comfort", costPerDay: 5000 },
     ],
-    totalPerPersonPerDay: 150,
+    totalPerPersonPerDay: 12500,
   },
   kyoto: {
     destination: "Kyoto, Japan",
     route: [
-      { from: "Osaka Airport", to: "Kyoto Station", mode: "Haruka Express", duration: "75 min", cost: 30 },
-      { from: "Kyoto Station", to: "Arashiyama", mode: "JR Train", duration: "20 min", cost: 3 },
-      { from: "Arashiyama", to: "Fushimi Inari", mode: "Bus", duration: "40 min", cost: 3 },
+      { from: "Osaka Airport", to: "Kyoto Station", mode: "Haruka Express", duration: "75 min", cost: 2500 },
+      { from: "Kyoto Station", to: "Arashiyama", mode: "JR Train", duration: "20 min", cost: 250 },
+      { from: "Arashiyama", to: "Fushimi Inari", mode: "Bus", duration: "40 min", cost: 250 },
     ],
     stay: [
-      { type: "Budget", name: "Capsule Hotel", costPerNight: 30, rating: 4.1 },
-      { type: "Mid-Range", name: "Traditional Ryokan", costPerNight: 100, rating: 4.7 },
-      { type: "Luxury", name: "5-Star Onsen Resort", costPerNight: 250, rating: 4.9 },
+      { type: "Budget", name: "Capsule Hotel", costPerNight: 2500, rating: 4.1 },
+      { type: "Mid-Range", name: "Traditional Ryokan", costPerNight: 8300, rating: 4.7 },
+      { type: "Luxury", name: "5-Star Onsen Resort", costPerNight: 21000, rating: 4.9 },
     ],
     food: [
-      { meal: "Breakfast", suggestion: "Konbini & Matcha", costPerMeal: 5 },
-      { meal: "Lunch", suggestion: "Ramen Street Shop", costPerMeal: 10 },
-      { meal: "Dinner", suggestion: "Kaiseki Restaurant", costPerMeal: 35 },
+      { meal: "Breakfast", suggestion: "Konbini & Matcha", costPerMeal: 400 },
+      { meal: "Lunch", suggestion: "Ramen Street Shop", costPerMeal: 850 },
+      { meal: "Dinner", suggestion: "Kaiseki Restaurant", costPerMeal: 2900 },
     ],
     events: [
       { name: "Bamboo Grove Walk", type: "Nature", cost: 0, duration: "1.5 hrs" },
-      { name: "Tea Ceremony", type: "Cultural", cost: 30, duration: "1 hr" },
-      { name: "Geisha District Tour", type: "Experience", cost: 20, duration: "2 hrs" },
+      { name: "Tea Ceremony", type: "Cultural", cost: 2500, duration: "1 hr" },
+      { name: "Geisha District Tour", type: "Experience", cost: 1650, duration: "2 hrs" },
     ],
     transport: [
-      { mode: "Day Bus Pass", description: "Unlimited city buses", costPerDay: 7 },
-      { mode: "Bicycle Rental", description: "Best for temple hopping", costPerDay: 10 },
-      { mode: "JR Rail Pass", description: "Trains & bullet trains", costPerDay: 25 },
+      { mode: "Day Bus Pass", description: "Unlimited city buses", costPerDay: 600 },
+      { mode: "Bicycle Rental", description: "Best for temple hopping", costPerDay: 850 },
+      { mode: "JR Rail Pass", description: "Trains & bullet trains", costPerDay: 2100 },
     ],
-    totalPerPersonPerDay: 120,
+    totalPerPersonPerDay: 10000,
   },
   paris: {
     destination: "Paris, France",
     route: [
-      { from: "CDG Airport", to: "City Center", mode: "RER B Train", duration: "50 min", cost: 12 },
-      { from: "Eiffel Tower", to: "Louvre", mode: "Metro", duration: "20 min", cost: 2 },
-      { from: "Louvre", to: "Montmartre", mode: "Metro", duration: "15 min", cost: 2 },
+      { from: "CDG Airport", to: "City Center", mode: "RER B Train", duration: "50 min", cost: 1000 },
+      { from: "Eiffel Tower", to: "Louvre", mode: "Metro", duration: "20 min", cost: 170 },
+      { from: "Louvre", to: "Montmartre", mode: "Metro", duration: "15 min", cost: 170 },
     ],
     stay: [
-      { type: "Budget", name: "Hostel in Marais", costPerNight: 35, rating: 4.0 },
-      { type: "Mid-Range", name: "Boutique Hotel", costPerNight: 130, rating: 4.5 },
-      { type: "Luxury", name: "5-Star Champs-Élysées", costPerNight: 350, rating: 4.9 },
+      { type: "Budget", name: "Hostel in Marais", costPerNight: 2900, rating: 4.0 },
+      { type: "Mid-Range", name: "Boutique Hotel", costPerNight: 10800, rating: 4.5 },
+      { type: "Luxury", name: "5-Star Champs-Élysées", costPerNight: 29000, rating: 4.9 },
     ],
     food: [
-      { meal: "Breakfast", suggestion: "Croissant & Café", costPerMeal: 8 },
-      { meal: "Lunch", suggestion: "Bistro du Quartier", costPerMeal: 18 },
-      { meal: "Dinner", suggestion: "Seine-side Restaurant", costPerMeal: 45 },
+      { meal: "Breakfast", suggestion: "Croissant & Café", costPerMeal: 650 },
+      { meal: "Lunch", suggestion: "Bistro du Quartier", costPerMeal: 1500 },
+      { meal: "Dinner", suggestion: "Seine-side Restaurant", costPerMeal: 3750 },
     ],
     events: [
-      { name: "Eiffel Tower Visit", type: "Landmark", cost: 25, duration: "2 hrs" },
-      { name: "Louvre Museum", type: "Cultural", cost: 17, duration: "4 hrs" },
-      { name: "Seine River Cruise", type: "Romantic", cost: 15, duration: "1 hr" },
+      { name: "Eiffel Tower Visit", type: "Landmark", cost: 2100, duration: "2 hrs" },
+      { name: "Louvre Museum", type: "Cultural", cost: 1400, duration: "4 hrs" },
+      { name: "Seine River Cruise", type: "Romantic", cost: 1250, duration: "1 hr" },
     ],
     transport: [
-      { mode: "Metro Day Pass", description: "Unlimited metro & bus", costPerDay: 15 },
+      { mode: "Metro Day Pass", description: "Unlimited metro & bus", costPerDay: 1250 },
       { mode: "Walking Tours", description: "Best for neighborhoods", costPerDay: 0 },
-      { mode: "Uber/Bolt", description: "Convenient rides", costPerDay: 30 },
+      { mode: "Uber/Bolt", description: "Convenient rides", costPerDay: 2500 },
     ],
-    totalPerPersonPerDay: 180,
+    totalPerPersonPerDay: 15000,
   },
   goa: {
     destination: "Goa, India",
     route: [
-      { from: "Dabolim Airport", to: "North Goa", mode: "Taxi", duration: "1 hr", cost: 10 },
-      { from: "Baga Beach", to: "Old Goa", mode: "Scooter", duration: "30 min", cost: 3 },
-      { from: "Old Goa", to: "South Goa", mode: "Taxi", duration: "45 min", cost: 12 },
+      { from: "Dabolim Airport", to: "North Goa", mode: "Taxi", duration: "1 hr", cost: 850 },
+      { from: "Baga Beach", to: "Old Goa", mode: "Scooter", duration: "30 min", cost: 250 },
+      { from: "Old Goa", to: "South Goa", mode: "Taxi", duration: "45 min", cost: 1000 },
     ],
     stay: [
-      { type: "Budget", name: "Beach Hostel", costPerNight: 8, rating: 4.0 },
-      { type: "Mid-Range", name: "Beach Shack Resort", costPerNight: 35, rating: 4.4 },
-      { type: "Luxury", name: "5-Star Beach Resort", costPerNight: 120, rating: 4.8 },
+      { type: "Budget", name: "Beach Hostel", costPerNight: 650, rating: 4.0 },
+      { type: "Mid-Range", name: "Beach Shack Resort", costPerNight: 2900, rating: 4.4 },
+      { type: "Luxury", name: "5-Star Beach Resort", costPerNight: 10000, rating: 4.8 },
     ],
     food: [
-      { meal: "Breakfast", suggestion: "Café by the Beach", costPerMeal: 3 },
-      { meal: "Lunch", suggestion: "Fish Thali Spot", costPerMeal: 4 },
-      { meal: "Dinner", suggestion: "Beachside Shack", costPerMeal: 8 },
+      { meal: "Breakfast", suggestion: "Café by the Beach", costPerMeal: 250 },
+      { meal: "Lunch", suggestion: "Fish Thali Spot", costPerMeal: 350 },
+      { meal: "Dinner", suggestion: "Beachside Shack", costPerMeal: 650 },
     ],
     events: [
-      { name: "Water Sports Pack", type: "Adventure", cost: 20, duration: "3 hrs" },
-      { name: "Spice Plantation Tour", type: "Experience", cost: 10, duration: "2 hrs" },
+      { name: "Water Sports Pack", type: "Adventure", cost: 1650, duration: "3 hrs" },
+      { name: "Spice Plantation Tour", type: "Experience", cost: 850, duration: "2 hrs" },
       { name: "Night Market Visit", type: "Shopping", cost: 0, duration: "2 hrs" },
     ],
     transport: [
-      { mode: "Scooter Rental", description: "Best way to explore Goa", costPerDay: 5 },
-      { mode: "Auto Rickshaw", description: "Short trips", costPerDay: 8 },
-      { mode: "Rented Car", description: "Family comfort", costPerDay: 25 },
+      { mode: "Scooter Rental", description: "Best way to explore Goa", costPerDay: 400 },
+      { mode: "Auto Rickshaw", description: "Short trips", costPerDay: 650 },
+      { mode: "Rented Car", description: "Family comfort", costPerDay: 2100 },
     ],
-    totalPerPersonPerDay: 40,
+    totalPerPersonPerDay: 3300,
   },
   dubai: {
     destination: "Dubai, UAE",
     route: [
-      { from: "DXB Airport", to: "Downtown", mode: "Metro", duration: "30 min", cost: 3 },
-      { from: "Downtown", to: "Marina", mode: "Tram", duration: "20 min", cost: 2 },
+      { from: "DXB Airport", to: "Downtown", mode: "Metro", duration: "30 min", cost: 250 },
+      { from: "Downtown", to: "Marina", mode: "Tram", duration: "20 min", cost: 170 },
       { from: "Marina", to: "Desert Safari", mode: "Tour Pickup", duration: "1 hr", cost: 0 },
     ],
     stay: [
-      { type: "Budget", name: "City Hotel Deira", costPerNight: 50, rating: 3.9 },
-      { type: "Mid-Range", name: "Marina View Hotel", costPerNight: 120, rating: 4.5 },
-      { type: "Luxury", name: "Burj Al Arab Suite", costPerNight: 500, rating: 5.0 },
+      { type: "Budget", name: "City Hotel Deira", costPerNight: 4200, rating: 3.9 },
+      { type: "Mid-Range", name: "Marina View Hotel", costPerNight: 10000, rating: 4.5 },
+      { type: "Luxury", name: "Burj Al Arab Suite", costPerNight: 41500, rating: 5.0 },
     ],
     food: [
-      { meal: "Breakfast", suggestion: "Hotel Buffet", costPerMeal: 15 },
-      { meal: "Lunch", suggestion: "Mall Food Court", costPerMeal: 12 },
-      { meal: "Dinner", suggestion: "Arabian Fine Dining", costPerMeal: 50 },
+      { meal: "Breakfast", suggestion: "Hotel Buffet", costPerMeal: 1250 },
+      { meal: "Lunch", suggestion: "Mall Food Court", costPerMeal: 1000 },
+      { meal: "Dinner", suggestion: "Arabian Fine Dining", costPerMeal: 4200 },
     ],
     events: [
-      { name: "Desert Safari", type: "Adventure", cost: 60, duration: "6 hrs" },
-      { name: "Burj Khalifa Entry", type: "Landmark", cost: 40, duration: "2 hrs" },
-      { name: "Dubai Mall Aquarium", type: "Family", cost: 30, duration: "2 hrs" },
+      { name: "Desert Safari", type: "Adventure", cost: 5000, duration: "6 hrs" },
+      { name: "Burj Khalifa Entry", type: "Landmark", cost: 3300, duration: "2 hrs" },
+      { name: "Dubai Mall Aquarium", type: "Family", cost: 2500, duration: "2 hrs" },
     ],
     transport: [
-      { mode: "Metro + Tram", description: "Clean and efficient", costPerDay: 8 },
-      { mode: "Taxi/Uber", description: "Affordable city rides", costPerDay: 25 },
-      { mode: "Hop-on Bus", description: "Tourist sightseeing", costPerDay: 50 },
+      { mode: "Metro + Tram", description: "Clean and efficient", costPerDay: 650 },
+      { mode: "Taxi/Uber", description: "Affordable city rides", costPerDay: 2100 },
+      { mode: "Hop-on Bus", description: "Tourist sightseeing", costPerDay: 4200 },
     ],
-    totalPerPersonPerDay: 200,
+    totalPerPersonPerDay: 16700,
   },
   manali: {
     destination: "Manali, India",
     route: [
-      { from: "Chandigarh", to: "Manali", mode: "Volvo Bus", duration: "10 hrs", cost: 15 },
-      { from: "Manali", to: "Solang Valley", mode: "Local Taxi", duration: "30 min", cost: 5 },
-      { from: "Manali", to: "Rohtang Pass", mode: "Shared Jeep", duration: "2 hrs", cost: 10 },
+      { from: "Chandigarh", to: "Manali", mode: "Volvo Bus", duration: "10 hrs", cost: 1250 },
+      { from: "Manali", to: "Solang Valley", mode: "Local Taxi", duration: "30 min", cost: 400 },
+      { from: "Manali", to: "Rohtang Pass", mode: "Shared Jeep", duration: "2 hrs", cost: 850 },
     ],
     stay: [
-      { type: "Budget", name: "Backpacker Hostel", costPerNight: 6, rating: 4.1 },
-      { type: "Mid-Range", name: "Riverside Cottage", costPerNight: 25, rating: 4.5 },
-      { type: "Luxury", name: "Mountain Resort", costPerNight: 80, rating: 4.7 },
+      { type: "Budget", name: "Backpacker Hostel", costPerNight: 500, rating: 4.1 },
+      { type: "Mid-Range", name: "Riverside Cottage", costPerNight: 2100, rating: 4.5 },
+      { type: "Luxury", name: "Mountain Resort", costPerNight: 6700, rating: 4.7 },
     ],
     food: [
-      { meal: "Breakfast", suggestion: "Paratha & Chai Stall", costPerMeal: 2 },
-      { meal: "Lunch", suggestion: "Tibetan Momos Shop", costPerMeal: 3 },
-      { meal: "Dinner", suggestion: "Bonfire BBQ Restaurant", costPerMeal: 6 },
+      { meal: "Breakfast", suggestion: "Paratha & Chai Stall", costPerMeal: 150 },
+      { meal: "Lunch", suggestion: "Tibetan Momos Shop", costPerMeal: 250 },
+      { meal: "Dinner", suggestion: "Bonfire BBQ Restaurant", costPerMeal: 500 },
     ],
     events: [
-      { name: "Paragliding at Solang", type: "Adventure", cost: 20, duration: "30 min" },
-      { name: "Rohtang Pass Trip", type: "Scenic", cost: 15, duration: "Full Day" },
+      { name: "Paragliding at Solang", type: "Adventure", cost: 1650, duration: "30 min" },
+      { name: "Rohtang Pass Trip", type: "Scenic", cost: 1250, duration: "Full Day" },
       { name: "Old Manali Walk", type: "Leisure", cost: 0, duration: "2 hrs" },
     ],
     transport: [
-      { mode: "Local Bus", description: "Cheapest option", costPerDay: 3 },
-      { mode: "Rented Bike", description: "Thrilling mountain roads", costPerDay: 10 },
-      { mode: "Private Taxi", description: "Comfortable sightseeing", costPerDay: 30 },
+      { mode: "Local Bus", description: "Cheapest option", costPerDay: 250 },
+      { mode: "Rented Bike", description: "Thrilling mountain roads", costPerDay: 850 },
+      { mode: "Private Taxi", description: "Comfortable sightseeing", costPerDay: 2500 },
     ],
-    totalPerPersonPerDay: 35,
+    totalPerPersonPerDay: 2900,
   },
 };
 
@@ -323,8 +323,8 @@ const AutoTripPlanner = () => {
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-display font-bold text-foreground">{plan.destination}</h4>
               <div className="flex items-center gap-1 bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-bold">
-                <DollarSign className="h-3.5 w-3.5" />
-                ~${plan.totalPerPersonPerDay * numPeople}/day for {numPeople} {numPeople === 1 ? "person" : "people"}
+                <IndianRupee className="h-3.5 w-3.5" />
+                ~₹{(plan.totalPerPersonPerDay * numPeople).toLocaleString('en-IN')}/day for {numPeople} {numPeople === 1 ? "person" : "people"}
               </div>
             </div>
 
@@ -332,7 +332,7 @@ const AutoTripPlanner = () => {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
               {[1, 2, 4, 6].map((n) => (
                 <div key={n} className={`rounded-lg p-2 text-center text-xs border transition-colors ${n === numPeople ? "bg-primary/10 border-primary text-primary font-bold" : "bg-muted/50 border-border text-muted-foreground"}`}>
-                  <span className="block font-semibold text-sm">${plan.totalPerPersonPerDay * n}</span>
+                  <span className="block font-semibold text-sm">₹{(plan.totalPerPersonPerDay * n).toLocaleString('en-IN')}</span>
                   /day for {n} {n === 1 ? "person" : "people"}
                 </div>
               ))}
@@ -371,7 +371,7 @@ const AutoTripPlanner = () => {
                       <p className="text-sm font-medium text-foreground">{r.from} → {r.to}</p>
                       <p className="text-xs text-muted-foreground">{r.mode} · {r.duration}</p>
                     </div>
-                    <span className="text-xs font-semibold text-primary">${r.cost * numPeople}</span>
+                    <span className="text-xs font-semibold text-primary">₹{(r.cost * numPeople).toLocaleString('en-IN')}</span>
                   </div>
                 ))}
 
@@ -382,7 +382,7 @@ const AutoTripPlanner = () => {
                       <p className="text-sm font-medium text-foreground">{s.name}</p>
                       <p className="text-xs text-muted-foreground">{s.type} · ⭐ {s.rating}</p>
                     </div>
-                    <span className="text-xs font-semibold text-primary">${s.costPerNight * numPeople}/night</span>
+                    <span className="text-xs font-semibold text-primary">₹{(s.costPerNight * numPeople).toLocaleString('en-IN')}/night</span>
                   </div>
                 ))}
 
@@ -393,7 +393,7 @@ const AutoTripPlanner = () => {
                       <p className="text-sm font-medium text-foreground">{f.suggestion}</p>
                       <p className="text-xs text-muted-foreground">{f.meal}</p>
                     </div>
-                    <span className="text-xs font-semibold text-primary">${f.costPerMeal * numPeople}</span>
+                    <span className="text-xs font-semibold text-primary">₹{(f.costPerMeal * numPeople).toLocaleString('en-IN')}</span>
                   </div>
                 ))}
 
@@ -404,7 +404,7 @@ const AutoTripPlanner = () => {
                       <p className="text-sm font-medium text-foreground">{e.name}</p>
                       <p className="text-xs text-muted-foreground">{e.type} · {e.duration}</p>
                     </div>
-                    <span className="text-xs font-semibold text-primary">${e.cost * numPeople}</span>
+                    <span className="text-xs font-semibold text-primary">₹{(e.cost * numPeople).toLocaleString('en-IN')}</span>
                   </div>
                 ))}
 
@@ -415,7 +415,7 @@ const AutoTripPlanner = () => {
                       <p className="text-sm font-medium text-foreground">{t.mode}</p>
                       <p className="text-xs text-muted-foreground">{t.description}</p>
                     </div>
-                    <span className="text-xs font-semibold text-primary">${t.costPerDay * numPeople}/day</span>
+                    <span className="text-xs font-semibold text-primary">₹{(t.costPerDay * numPeople).toLocaleString('en-IN')}/day</span>
                   </div>
                 ))}
               </motion.div>

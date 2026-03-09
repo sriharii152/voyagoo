@@ -88,21 +88,21 @@ const BudgetSummaryCard = ({
             </div>
           ) : (
             <p className="font-display text-3xl font-bold text-card-foreground cursor-pointer hover:text-primary transition-colors" onClick={() => setEditBudget(true)}>
-              ${budget.toLocaleString()}
+              ₹{budget.toLocaleString('en-IN')}
             </p>
           )}
         </div>
         <div className="text-right">
           <p className="text-sm text-muted-foreground">Spent</p>
           <p className={cn("font-display text-3xl font-bold", percentage >= 90 ? "text-destructive" : "text-primary")}>
-            ${totalSpent.toLocaleString()}
+            ₹{totalSpent.toLocaleString('en-IN')}
           </p>
         </div>
       </div>
 
       <div className="mb-2 flex justify-between text-xs text-muted-foreground">
         <span>{percentage.toFixed(0)}% used</span>
-        <span>${Math.max(budget - totalSpent, 0).toLocaleString()} remaining</span>
+        <span>₹{Math.max(budget - totalSpent, 0).toLocaleString('en-IN')} remaining</span>
       </div>
       <Progress value={percentage} className={cn("h-3 mb-6", percentage >= 90 && "[&>div]:bg-destructive")} />
 
@@ -119,7 +119,7 @@ const BudgetSummaryCard = ({
               <div className="flex-1">
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-sm font-medium text-card-foreground">{cat.name}</span>
-                  <span className="text-sm font-semibold text-card-foreground">${cat.spent.toLocaleString()}</span>
+                  <span className="text-sm font-semibold text-card-foreground">₹{cat.spent.toLocaleString('en-IN')}</span>
                 </div>
                 <Progress value={budget > 0 ? (cat.spent / budget) * 100 : 0} className="h-1.5" />
               </div>
@@ -142,7 +142,7 @@ const BudgetSummaryCard = ({
             <div className="mt-4 p-4 bg-muted/50 rounded-xl space-y-3">
               <Input placeholder="Description..." value={newDesc} onChange={(e) => setNewDesc(e.target.value)} />
               <div className="grid grid-cols-2 gap-3">
-                <Input type="number" placeholder="Amount ($)" value={newAmount} onChange={(e) => setNewAmount(e.target.value)} min="0" step="0.01" />
+                <Input type="number" placeholder="Amount (₹)" value={newAmount} onChange={(e) => setNewAmount(e.target.value)} min="0" step="0.01" />
                 <Select value={newCategory} onValueChange={setNewCategory}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>

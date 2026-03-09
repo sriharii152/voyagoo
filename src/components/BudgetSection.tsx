@@ -6,14 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 
 const categories = [
-  { name: "Transport", icon: Plane, spent: 450, color: "bg-ocean" },
-  { name: "Accommodation", icon: Hotel, spent: 680, color: "bg-primary" },
-  { name: "Food & Dining", icon: Utensils, spent: 320, color: "bg-forest" },
-  { name: "Shopping", icon: ShoppingBag, spent: 150, color: "bg-sunset" },
+  { name: "Transport", icon: Plane, spent: 37500, color: "bg-ocean" },
+  { name: "Accommodation", icon: Hotel, spent: 56500, color: "bg-primary" },
+  { name: "Food & Dining", icon: Utensils, spent: 26500, color: "bg-forest" },
+  { name: "Shopping", icon: ShoppingBag, spent: 12500, color: "bg-sunset" },
 ];
 
 const BudgetSection = () => {
-  const totalBudget = 2500;
+  const totalBudget = 200000;
   const [budget] = useState(totalBudget);
   const totalSpent = categories.reduce((sum, c) => sum + c.spent, 0);
   const percentage = (totalSpent / budget) * 100;
@@ -42,17 +42,17 @@ const BudgetSection = () => {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <p className="text-sm text-muted-foreground">Total Budget</p>
-                <p className="font-display text-3xl font-bold text-card-foreground">${budget.toLocaleString()}</p>
+                <p className="font-display text-3xl font-bold text-card-foreground">₹{budget.toLocaleString('en-IN')}</p>
               </div>
               <div className="text-right">
                 <p className="text-sm text-muted-foreground">Spent</p>
-                <p className="font-display text-3xl font-bold text-primary">${totalSpent.toLocaleString()}</p>
+                <p className="font-display text-3xl font-bold text-primary">₹{totalSpent.toLocaleString('en-IN')}</p>
               </div>
             </div>
 
             <div className="mb-2 flex justify-between text-xs text-muted-foreground">
               <span>{percentage.toFixed(0)}% used</span>
-              <span>${(budget - totalSpent).toLocaleString()} remaining</span>
+              <span>₹{(budget - totalSpent).toLocaleString('en-IN')} remaining</span>
             </div>
             <Progress value={percentage} className="h-3 mb-8" />
 
@@ -73,7 +73,7 @@ const BudgetSection = () => {
                   <div className="flex-1">
                     <div className="flex justify-between items-center mb-1">
                       <span className="text-sm font-medium text-card-foreground">{cat.name}</span>
-                      <span className="text-sm font-semibold text-card-foreground">${cat.spent}</span>
+                      <span className="text-sm font-semibold text-card-foreground">₹{cat.spent.toLocaleString('en-IN')}</span>
                     </div>
                     <Progress value={(cat.spent / budget) * 100} className="h-1.5" />
                   </div>
