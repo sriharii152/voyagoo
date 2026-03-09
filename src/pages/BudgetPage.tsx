@@ -21,7 +21,7 @@ import ExpenseList from "@/components/budget/ExpenseList";
 const BudgetPage = () => {
   const { user } = useAuth();
   const queryClient = useQueryClient();
-  const [budget, setBudget] = useState(2500);
+  const [budget, setBudget] = useState(200000);
   const [editBudget, setEditBudget] = useState(false);
 
   const { data: expenses = [], isLoading } = useQuery({

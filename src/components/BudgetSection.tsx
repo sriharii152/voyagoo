@@ -13,7 +13,7 @@ const categories = [
 ];
 
 const BudgetSection = () => {
-  const totalBudget = 2500;
+  const totalBudget = 200000;
   const [budget] = useState(totalBudget);
   const totalSpent = categories.reduce((sum, c) => sum + c.spent, 0);
   const percentage = (totalSpent / budget) * 100;
