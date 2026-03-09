@@ -142,7 +142,7 @@ const BudgetSummaryCard = ({
             <div className="mt-4 p-4 bg-muted/50 rounded-xl space-y-3">
               <Input placeholder="Description..." value={newDesc} onChange={(e) => setNewDesc(e.target.value)} />
               <div className="grid grid-cols-2 gap-3">
-                <Input type="number" placeholder="Amount ($)" value={newAmount} onChange={(e) => setNewAmount(e.target.value)} min="0" step="0.01" />
+                <Input type="number" placeholder="Amount (₹)" value={newAmount} onChange={(e) => setNewAmount(e.target.value)} min="0" step="0.01" />
                 <Select value={newCategory} onValueChange={setNewCategory}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>

@@ -135,7 +135,7 @@ const ActivitiesPage = () => {
                 <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1"><MapPin className="h-3 w-3" /> {activity.destination}</p>
                 <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{activity.description}</p>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="flex items-center gap-1 text-primary font-bold"><DollarSign className="h-4 w-4" />{activity.cost}</span>
+                  <span className="flex items-center gap-1 text-primary font-bold"><IndianRupee className="h-4 w-4" />{activity.cost.toLocaleString('en-IN')}</span>
                   <span className="flex items-center gap-1 text-muted-foreground"><Clock className="h-4 w-4" /> {activity.duration}</span>
                 </div>
                 <Button variant="hero" size="sm" className="mt-4 w-full gap-2">

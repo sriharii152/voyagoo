@@ -112,7 +112,7 @@ const ExpenseList = ({ expenses, isLoading, onUpdate, onDelete, isUpdating }: Ex
                 <p className="text-sm font-medium text-card-foreground truncate">{exp.description}</p>
                 <p className="text-xs text-muted-foreground">{exp.category} · {new Date(exp.expense_date).toLocaleDateString()}</p>
               </div>
-              <span className="text-sm font-bold text-primary whitespace-nowrap">${Number(exp.amount).toLocaleString()}</span>
+              <span className="text-sm font-bold text-primary whitespace-nowrap">₹{Number(exp.amount).toLocaleString('en-IN')}</span>
               <button onClick={() => startEdit(exp)} className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-foreground transition-opacity">
                 <Pencil className="h-4 w-4" />
               </button>

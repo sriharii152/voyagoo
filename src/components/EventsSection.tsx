@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 
 const events = [
   { title: "Lantern Festival", location: "Kyoto, Japan", date: "Mar 15", time: "6:00 PM", category: "Cultural", price: "Free" },
-  { title: "Beach Music Fest", location: "Bali, Indonesia", date: "Mar 22", time: "4:00 PM", category: "Music", price: "$45" },
-  { title: "Wine Tasting Tour", location: "Santorini, Greece", date: "Apr 3", time: "2:00 PM", category: "Food & Drink", price: "$65" },
-  { title: "Inca Trail Marathon", location: "Cusco, Peru", date: "Apr 10", time: "7:00 AM", category: "Sports", price: "$30" },
+  { title: "Beach Music Fest", location: "Bali, Indonesia", date: "Mar 22", time: "4:00 PM", category: "Music", price: "₹3,750" },
+  { title: "Wine Tasting Tour", location: "Santorini, Greece", date: "Apr 3", time: "2:00 PM", category: "Food & Drink", price: "₹5,400" },
+  { title: "Inca Trail Marathon", location: "Cusco, Peru", date: "Apr 10", time: "7:00 AM", category: "Sports", price: "₹2,500" },
 ];
 
 const categoryColors: Record<string, string> = {

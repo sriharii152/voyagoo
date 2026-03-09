@@ -244,7 +244,7 @@ const JourneyPlannerModal = ({ open, onClose }: JourneyPlannerModalProps) => {
                           <span className="flex items-center gap-1">
                             <Star className="h-3.5 w-3.5 fill-primary text-primary" /> {place.rating}
                           </span>
-                          <span>~${place.budgetPerPerson}/person/day</span>
+                          <span>~₹{place.budgetPerPerson.toLocaleString('en-IN')}/person/day</span>
                           <span>{place.minDays}–{place.maxDays} days</span>
                         </div>
                       </motion.div>
