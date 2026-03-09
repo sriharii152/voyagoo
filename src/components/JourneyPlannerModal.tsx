@@ -17,7 +17,7 @@ interface JourneyPlace {
   rating: number;
   tag: string;
   category: "state" | "national" | "international";
-  budgetPerPerson: number; // per day in USD
+  budgetPerPerson: number; // per day in INR
   minDays: number;
   maxDays: number;
   bestForGroup: string[];
