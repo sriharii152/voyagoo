@@ -42,7 +42,7 @@ const BudgetSection = () => {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <p className="text-sm text-muted-foreground">Total Budget</p>
-                <p className="font-display text-3xl font-bold text-card-foreground">${budget.toLocaleString()}</p>
+                <p className="font-display text-3xl font-bold text-card-foreground">₹{budget.toLocaleString('en-IN')}</p>
               </div>
               <div className="text-right">
                 <p className="text-sm text-muted-foreground">Spent</p>
