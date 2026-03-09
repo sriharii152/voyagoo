@@ -404,7 +404,7 @@ const AutoTripPlanner = () => {
                       <p className="text-sm font-medium text-foreground">{e.name}</p>
                       <p className="text-xs text-muted-foreground">{e.type} · {e.duration}</p>
                     </div>
-                    <span className="text-xs font-semibold text-primary">${e.cost * numPeople}</span>
+                    <span className="text-xs font-semibold text-primary">₹{(e.cost * numPeople).toLocaleString('en-IN')}</span>
                   </div>
                 ))}
 
