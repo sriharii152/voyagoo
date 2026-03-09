@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Flame, MapPin, Clock, DollarSign, Heart, Search, MessageCircle } from "lucide-react";
+import { Flame, MapPin, Clock, IndianRupee, Heart, Search, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
