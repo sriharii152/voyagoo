@@ -332,7 +332,7 @@ const AutoTripPlanner = () => {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
               {[1, 2, 4, 6].map((n) => (
                 <div key={n} className={`rounded-lg p-2 text-center text-xs border transition-colors ${n === numPeople ? "bg-primary/10 border-primary text-primary font-bold" : "bg-muted/50 border-border text-muted-foreground"}`}>
-                  <span className="block font-semibold text-sm">${plan.totalPerPersonPerDay * n}</span>
+                  <span className="block font-semibold text-sm">₹{(plan.totalPerPersonPerDay * n).toLocaleString('en-IN')}</span>
                   /day for {n} {n === 1 ? "person" : "people"}
                 </div>
               ))}
