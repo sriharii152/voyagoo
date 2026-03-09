@@ -88,7 +88,7 @@ const BudgetSummaryCard = ({
             </div>
           ) : (
             <p className="font-display text-3xl font-bold text-card-foreground cursor-pointer hover:text-primary transition-colors" onClick={() => setEditBudget(true)}>
-              ${budget.toLocaleString()}
+              ₹{budget.toLocaleString('en-IN')}
             </p>
           )}
         </div>
