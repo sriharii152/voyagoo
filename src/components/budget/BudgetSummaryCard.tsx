@@ -102,7 +102,7 @@ const BudgetSummaryCard = ({
 
       <div className="mb-2 flex justify-between text-xs text-muted-foreground">
         <span>{percentage.toFixed(0)}% used</span>
-        <span>${Math.max(budget - totalSpent, 0).toLocaleString()} remaining</span>
+        <span>₹{Math.max(budget - totalSpent, 0).toLocaleString('en-IN')} remaining</span>
       </div>
       <Progress value={percentage} className={cn("h-3 mb-6", percentage >= 90 && "[&>div]:bg-destructive")} />
 
