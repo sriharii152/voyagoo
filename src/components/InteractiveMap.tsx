@@ -1,24 +1,26 @@
 import { useEffect, useRef, useState } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 import { Search } from "lucide-react";
 
-// Fix default marker icons
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
-  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
-  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
-});
+const GMAPS_BROWSER_KEY = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY as string;
+const GMAPS_CHANNEL = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID as string;
 
-const createColorIcon = (color: string) =>
-  L.divIcon({
-    className: "custom-marker",
-    html: `<div style="background:${color};width:28px;height:28px;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);"></div>`,
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
-    popupAnchor: [0, -16],
+let gmapsLoaderPromise: Promise<typeof google> | null = null;
+function loadGoogleMaps(): Promise<typeof google> {
+  if (typeof window !== "undefined" && (window as any).google?.maps) {
+    return Promise.resolve((window as any).google);
+  }
+  if (gmapsLoaderPromise) return gmapsLoaderPromise;
+  gmapsLoaderPromise = new Promise((resolve, reject) => {
+    (window as any).__initGmaps = () => resolve((window as any).google);
+    const s = document.createElement("script");
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${GMAPS_BROWSER_KEY}&loading=async&callback=__initGmaps&channel=${GMAPS_CHANNEL}`;
+    s.async = true;
+    s.defer = true;
+    s.onerror = reject;
+    document.head.appendChild(s);
   });
+  return gmapsLoaderPromise;
+}
 
 const markerColors: Record<string, string> = {
   destination: "hsl(24, 80%, 50%)",
@@ -61,9 +63,10 @@ const InteractiveMap = ({
   height = "h-[500px]",
   interactive = true,
 }: InteractiveMapProps) => {
-  const mapRef = useRef<L.Map | null>(null);
+  const mapRef = useRef<google.maps.Map | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const markersLayerRef = useRef<L.LayerGroup | null>(null);
+  const markersRef = useRef<google.maps.Marker[]>([]);
+  const infoRef = useRef<google.maps.InfoWindow | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
@@ -76,59 +79,73 @@ const InteractiveMap = ({
   // Initialize map
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
-
-    const map = L.map(containerRef.current, {
-      center: [20, 40],
-      zoom: 2,
-      scrollWheelZoom: interactive,
-      dragging: interactive,
-      zoomControl: interactive,
-      doubleClickZoom: interactive,
-      touchZoom: interactive,
+    let cancelled = false;
+    loadGoogleMaps().then((g) => {
+      if (cancelled || !containerRef.current) return;
+      const map = new g.maps.Map(containerRef.current, {
+        center: { lat: 20, lng: 40 },
+        zoom: 2,
+        disableDefaultUI: !interactive,
+        gestureHandling: interactive ? "auto" : "none",
+        zoomControl: interactive,
+      });
+      infoRef.current = new g.maps.InfoWindow();
+      mapRef.current = map;
+      // trigger marker render
+      setSearchQuery((q) => q);
     });
-
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
-
-    markersLayerRef.current = L.layerGroup().addTo(map);
-    mapRef.current = map;
-
-    // Fix tiles not loading when container was hidden
-    setTimeout(() => map.invalidateSize(), 200);
-
     return () => {
-      map.remove();
+      cancelled = true;
+      markersRef.current.forEach((m) => m.setMap(null));
+      markersRef.current = [];
       mapRef.current = null;
     };
   }, [interactive]);
 
   // Update markers when filter/search changes
   useEffect(() => {
-    if (!mapRef.current || !markersLayerRef.current) return;
+    const map = mapRef.current;
+    const g = (window as any).google;
+    if (!map || !g?.maps) return;
 
-    markersLayerRef.current.clearLayers();
+    markersRef.current.forEach((m) => m.setMap(null));
+    markersRef.current = [];
 
     filteredMarkers.forEach((m) => {
-      const marker = L.marker([m.lat, m.lng], {
-        icon: createColorIcon(markerColors[m.type] || markerColors.destination),
+      const color = markerColors[m.type] || markerColors.destination;
+      const marker = new g.maps.Marker({
+        position: { lat: m.lat, lng: m.lng },
+        map,
+        title: m.name,
+        icon: {
+          path: g.maps.SymbolPath.CIRCLE,
+          scale: 10,
+          fillColor: color,
+          fillOpacity: 1,
+          strokeColor: "#ffffff",
+          strokeWeight: 3,
+        },
       });
-
-      marker.bindPopup(`
-        <div style="min-width:180px">
-          <h3 style="font-weight:bold;font-size:14px;margin:0 0 4px">${m.name}</h3>
-          ${m.description ? `<p style="font-size:12px;color:#666;margin:0 0 8px">${m.description}</p>` : ""}
-          <span style="background:${markerColors[m.type]};color:white;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:bold;text-transform:uppercase">${m.type}</span>
-        </div>
-      `);
-
-      marker.addTo(markersLayerRef.current!);
+      marker.addListener("click", () => {
+        infoRef.current?.setContent(`
+          <div style="min-width:180px">
+            <h3 style="font-weight:bold;font-size:14px;margin:0 0 4px">${m.name}</h3>
+            ${m.description ? `<p style="font-size:12px;color:#666;margin:0 0 8px">${m.description}</p>` : ""}
+            <span style="background:${color};color:white;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:bold;text-transform:uppercase">${m.type}</span>
+          </div>
+        `);
+        infoRef.current?.open({ map, anchor: marker });
+      });
+      markersRef.current.push(marker);
     });
 
-    // Fit bounds
     if (filteredMarkers.length > 0) {
-      const bounds = L.latLngBounds(filteredMarkers.map((m) => [m.lat, m.lng] as L.LatLngTuple));
-      mapRef.current.fitBounds(bounds, { padding: [50, 50], maxZoom: 6 });
+      const bounds = new g.maps.LatLngBounds();
+      filteredMarkers.forEach((m) => bounds.extend({ lat: m.lat, lng: m.lng }));
+      map.fitBounds(bounds, 60);
+      if (filteredMarkers.length === 1) {
+        g.maps.event.addListenerOnce(map, "idle", () => map.setZoom(Math.min(map.getZoom() ?? 6, 6)));
+      }
     }
   }, [filteredMarkers]);
 
