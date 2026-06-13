@@ -4,8 +4,8 @@ import { Search } from "lucide-react";
 const GMAPS_BROWSER_KEY = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY as string;
 const GMAPS_CHANNEL = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID as string;
 
-let gmapsLoaderPromise: Promise<typeof google> | null = null;
-function loadGoogleMaps(): Promise<typeof google> {
+let gmapsLoaderPromise: Promise<any> | null = null;
+function loadGoogleMaps(): Promise<any> {
   if (typeof window !== "undefined" && (window as any).google?.maps) {
     return Promise.resolve((window as any).google);
   }
@@ -63,10 +63,10 @@ const InteractiveMap = ({
   height = "h-[500px]",
   interactive = true,
 }: InteractiveMapProps) => {
-  const mapRef = useRef<google.maps.Map | null>(null);
+  const mapRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const markersRef = useRef<google.maps.Marker[]>([]);
-  const infoRef = useRef<google.maps.InfoWindow | null>(null);
+  const markersRef = useRef<any[]>([]);
+  const infoRef = useRef<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
